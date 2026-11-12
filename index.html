@@ -14,6 +14,13 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
+  <!-- Peringatan otomatis jika dibuka di aplikasi yang memblokir JavaScript -->
+  <noscript>
+    <div style="background:#fee2e2;color:#991b1b;padding:16px;text-align:center;font-weight:bold;font-size:14px;">
+      ⚠️ Browser/aplikasi ini memblokir JavaScript sehingga tombol tidak bisa diklik. Silakan salin link GitHub Pages kamu dan buka langsung di Google Chrome atau Safari.
+    </div>
+  </noscript>
+
   <!-- ========================================================= -->
   <!-- HALAMAN AWAL: LOGIN SCREEN FLAAZ STUDIO                   -->
   <!-- ========================================================= -->
@@ -60,10 +67,10 @@
             Student & Lecturer Portal
           </span>
           <h3 class="text-2xl font-extrabold text-slate-900 mt-2">Selamat Datang Kembali</h3>
-          <p class="text-xs text-slate-500 mt-1">Masukkan nama atau langsung gunakan tombol Masuk Cepat di bawah.</p>
+          <p class="text-xs text-slate-500 mt-1">Masukkan nama atau langsung tekan tombol Masuk Cepat di bawah.</p>
         </div>
 
-        <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+        <form id="login-form" onsubmit="event.preventDefault(); document.getElementById('login-screen').style.display='none'; document.getElementById('app-shell').style.display='flex'; if(window.syncUserName) syncUserName(); return false;" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap / Mahasiswa</label>
             <input
@@ -96,7 +103,8 @@
           </div>
 
           <button
-            type="submit"
+            type="button"
+            onclick="document.getElementById('login-screen').style.display='none'; document.getElementById('app-shell').style.display='flex'; if(window.syncUserName) syncUserName();"
             class="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white font-bold text-sm py-3 rounded-xl shadow-sm transition cursor-pointer">
             Masuk ke Flaaz Studio →
           </button>
@@ -113,7 +121,7 @@
 
         <button
           type="button"
-          onclick="quickDemoLogin()"
+          onclick="document.getElementById('login-screen').style.display='none'; document.getElementById('app-shell').style.display='flex'; if(window.syncUserName) syncUserName('Dosen / Penguji');"
           class="w-full bg-slate-100 hover:bg-slate-200 active:scale-[0.99] text-slate-800 font-bold text-xs py-3 rounded-xl border border-slate-200 transition cursor-pointer">
           ⚡ Masuk Cepat (Mode Dosen / Tamu)
         </button>
@@ -164,7 +172,7 @@
             </span>
             <span id="user-display-name" class="text-xs font-bold text-slate-700">Mahasiswa</span>
           </div>
-          <button onclick="handleLogout()" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 transition cursor-pointer">
+          <button onclick="document.getElementById('app-shell').style.display='none'; document.getElementById('login-screen').style.display='flex';" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 transition cursor-pointer">
             Keluar
           </button>
         </div>
@@ -280,7 +288,7 @@
           <div class="w-full h-[520px] sm:h-[600px] lg:h-[660px] bg-slate-900 relative">
             <iframe
               id="main-iframe"
-              src=""
+              src="https://app.lumi.education/api/v1/run/r7c-q0/embed"
               class="w-full h-full border-0 relative z-10"
               allowfullscreen="allowfullscreen"
               allow="fullscreen; autoplay; allow-top-navigation-by-user-activation; geolocation *; microphone *; camera *; midi *; encrypted-media *">
@@ -295,11 +303,11 @@
                   Modul 1 dari 5
                 </span>
                 <span id="active-type" class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
-                  Lumi H5P
+                  Lumi H5P • Drag the Words
                 </span>
               </div>
-              <h3 id="active-title" class="text-lg font-extrabold text-slate-900">Judul Materi</h3>
-              <p id="active-desc" class="text-xs text-slate-500 mt-0.5">Deskripsi singkat materi kuliah.</p>
+              <h3 id="active-title" class="text-lg font-extrabold text-slate-900">1. R&D Produk Tekpen (Model ADDIE)</h3>
+              <p id="active-desc" class="text-xs text-slate-500 mt-0.5">Review tahapan Analysis, Design, Development, Implementation, Evaluation & uji validasi ahli.</p>
             </div>
 
             <div class="flex items-center gap-2 shrink-0">
@@ -358,9 +366,6 @@
   <script src="https://app.lumi.education/api/v1/h5p/core/js/h5p-resizer.js" charset="UTF-8"></script>
 
   <script>
-    // =========================================================
-    // 0. SAFE STORAGE HELPER (ANTI-ERROR DI SEMUA BROWSER/HP)
-    // =========================================================
     var memoryStore = {};
     function safeGet(key) {
       try {
@@ -382,47 +387,17 @@
       } catch (e) {}
     }
 
-    // =========================================================
-    // 1. SISTEM LOGIN LANGSUNG (TANPA TERBLOKIR BROWSER)
-    // =========================================================
-    var activeUser = null;
-
-    function openWorkspace(userName) {
-      activeUser = userName || "Mahasiswa Tekpen";
-      var loginScreen = document.getElementById("login-screen");
-      var appShell = document.getElementById("app-shell");
-
-      loginScreen.style.display = "none";
-      appShell.style.display = "flex";
-
-      document.getElementById("user-display-name").textContent = activeUser;
-      document.getElementById("welcome-name").textContent = activeUser;
-      document.getElementById("user-avatar").textContent = activeUser.charAt(0).toUpperCase();
-    }
-
-    function handleLogin(e) {
-      if (e && e.preventDefault) e.preventDefault();
+    // Sinkronisasi nama user setelah login
+    window.syncUserName = function (forcedName) {
       var nameInput = document.getElementById("login-name");
-      var nameVal = nameInput ? nameInput.value.trim() : "";
-      openWorkspace(nameVal || "Mahasiswa Tekpen");
-    }
+      var typedName = nameInput ? nameInput.value.trim() : "";
+      var finalName = forcedName || typedName || "Mahasiswa Tekpen";
 
-    function quickDemoLogin() {
-      openWorkspace("Dosen / Penguji");
-    }
+      document.getElementById("user-display-name").textContent = finalName;
+      document.getElementById("welcome-name").textContent = finalName;
+      document.getElementById("user-avatar").textContent = finalName.charAt(0).toUpperCase();
+    };
 
-    function handleLogout() {
-      activeUser = null;
-      var loginScreen = document.getElementById("login-screen");
-      var appShell = document.getElementById("app-shell");
-
-      appShell.style.display = "none";
-      loginScreen.style.display = "flex";
-    }
-
-    // =========================================================
-    // 2. DATA 5 MODUL INTERAKTIF (SUDAH TERISI LINK ASLI)
-    // =========================================================
     var defaultModules = [
       {
         title: "1. R&D Produk Tekpen (Model ADDIE)",
@@ -480,9 +455,6 @@
         .replace(/>/g, ">");
     }
 
-    // =========================================================
-    // 3. RENDER PEMUTAR UTAMA & 5 KARTU BERJAJAR
-    // =========================================================
     function renderPlayerAndGrid() {
       var current = modules[currentIndex];
       var iframe = document.getElementById("main-iframe");
@@ -580,9 +552,6 @@
       renderPlayerAndGrid();
     }
 
-    // =========================================================
-    // 4. NAVIGASI TAB, TIMER, CATATAN & TUGAS
-    // =========================================================
     function switchTab(tabName) {
       ["dashboard", "review", "notes", "tasks"].forEach(function (name) {
         var view = document.getElementById("view-" + name);
@@ -691,7 +660,6 @@
       renderTasks();
     }
 
-    // Jalankan inisialisasi
     renderPlayerAndGrid();
     renderTasks();
   </script>
