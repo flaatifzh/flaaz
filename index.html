@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flaaz Studio — Workspace & Review Materi Kuliah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- NAVBAR ATAS FLAAZ STUDIO -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center shadow-sm">
+          F
+        </div>
+        <div>
+          <h1 class="font-extrabold text-base sm:text-lg text-slate-900 leading-tight">Flaaz Studio</h1>
+          <p class="text-[11px] text-slate-500 hidden sm:block">All-in-One Student Workspace</p>
+        </div>
+      </div>
+
+      <!-- Menu Navigasi Tab -->
+      <nav class="flex items-center gap-1.5 sm:gap-2 bg-slate-100 p-1 rounded-xl">
+        <button onclick="switchTab('review')" id="tab-review" class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-600 shadow-sm transition">
+          Review Materi Kuliah
+        </button>
+        <button onclick="switchTab('notes')" id="tab-notes" class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">
+          Catatan
+        </button>
+        <button onclick="switchTab('tasks')" id="tab-tasks" class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition">
+          Deadline
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- KONTEN UTAMA -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+
+    <!-- ========================================================= -->
+    <!-- HALAMAN 1: REVIEW MATERI KULIAH (PLAYLIST 5 EMBED)         -->
+    <!-- ========================================================= -->
+    <section id="view-review" class="space-y-6">
+
+      <!-- Header Halaman -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 mb-1">
+            Interactive Learning Hub • 5 Modul Aktif
+          </span>
+          <h2 class="text-2xl font-extrabold text-slate-900">Review Materi Kuliah</h2>
+          <p class="text-sm text-slate-500">Pilih salah satu dari 5 konten interaktif (Lumi H5P, Educaplay, dan Wordwall) di bawah untuk mulai belajar.</p>
+        </div>
+
+        <button onclick="toggleEditor()" class="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition">
+          <span>⚙️ Edit Judul / Link Modul</span>
+        </button>
+      </div>
+
+      <!-- Panel Edit Judul & Link (Tersembunyi secara default) -->
+      <div id="editor-panel" class="hidden bg-white border border-indigo-200 rounded-2xl p-5 shadow-lg space-y-4">
+        <div class="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm">Sesuaikan Judul, Platform, atau URL Embed</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Kelima tautan sudah terisi otomatis. Kamu bisa mengubah judul mata kuliah atau mengganti link kapan saja.</p>
+          </div>
+          <button onclick="toggleEditor()" class="text-slate-400 hover:text-slate-700 font-bold text-sm px-2">✕</button>
+        </div>
+
+        <div id="editor-inputs" class="space-y-3"></div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+          <button onclick="resetDefaultModules()" class="text-xs font-semibold text-rose-600 hover:underline">
+            Kembalikan ke 5 Link Awal
+          </button>
+          <div class="flex gap-2">
+            <button onclick="toggleEditor()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">
+              Batal
+            </button>
+            <button onclick="saveModules()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2 rounded-xl shadow-sm transition">
+              Simpan Perubahan
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layar Pemutar Utama (Tinggi Optimal untuk Lumi, Educaplay & Wordwall) -->
+      <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <div class="w-full h-[520px] sm:h-[600px] lg:h-[660px] bg-slate-900 relative">
+          <iframe
+            id="main-iframe"
+            src=""
+            class="w-full h-full border-0 relative z-10"
+            allowfullscreen="allowfullscreen"
+            allow="fullscreen; autoplay; allow-top-navigation-by-user-activation; geolocation *; microphone *; camera *; midi *; encrypted-media *">
+          </iframe>
+        </div>
+
+        <!-- Info Modul yang Sedang Aktif -->
+        <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border-t border-slate-100">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span id="active-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-100">
+                Modul 1 dari 5
+              </span>
+              <span id="active-type" class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
+                Lumi H5P
+              </span>
+            </div>
+            <h3 id="active-title" class="text-lg font-extrabold text-slate-900">Judul Materi</h3>
+            <p id="active-desc" class="text-xs text-slate-500 mt-0.5">Deskripsi singkat materi kuliah.</p>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="prevModule()" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 transition">
+              ← Sebelumnya
+            </button>
+            <button onclick="nextModule()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-white transition">
+              Selanjutnya →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daftar 5 Pilihan Modul Berjajar (Ala YouTube Playlist) -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="text-sm font-extrabold text-slate-800">Daftar Playlist Materi (5 Modul Interaktif)</h4>
+          <span class="text-xs text-slate-400">Klik kartu di bawah untuk berpindah modul</span>
+        </div>
+        <div id="playlist-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5"></div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- HALAMAN 2: CATATAN RINGKAS KULIAH                         -->
+    <!-- ========================================================= -->
+    <section id="view-notes" class="hidden space-y-4">
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-extrabold text-slate-900">Catatan & Rangkuman Kuliah</h2>
+            <p class="text-xs text-slate-500">Tersimpan otomatis di browser kamu.</p>
+          </div>
+          <span id="note-status" class="text-xs font-semibold text-emerald-600">Tersimpan</span>
+        </div>
+        <textarea id="quick-notes" rows="12" placeholder="Tulis catatan penting dari hasil kuis atau materi kuliah di sini..." class="w-full rounded-xl border border-slate-200 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- HALAMAN 3: DEADLINE TUGAS                                 -->
+    <!-- ========================================================= -->
+    <section id="view-tasks" class="hidden space-y-4">
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4 max-w-2xl">
+        <h2 class="text-xl font-extrabold text-slate-900">Target & Deadline Tugas</h2>
+        <div class="flex gap-2">
+          <input type="text" id="new-task-input" placeholder="Tambah target belajar atau tugas baru..." class="flex-1 rounded-xl border border-slate-200 px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <button onclick="addTask()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl">
+            Tambah
+          </button>
+        </div>
+        <ul id="task-list" class="space-y-2"></ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Script Resizer Resmi dari Lumi H5P -->
+  <script src="https://app.lumi.education/api/v1/h5p/core/js/h5p-resizer.js" charset="UTF-8"></script>
+
+  <script>
+    // 1. DATA 5 MODUL INTERAKTIF (SUDAH TERISI LINK ASLI MILIKMU)
+    const defaultModules = [
+      {
+        title: "1. R&D Produk Tekpen (Model ADDIE)",
+        type: "Lumi H5P • Drag the Words",
+        desc: "Review tahapan Analysis, Design, Development, Implementation, Evaluation & uji validasi ahli.",
+        url: "https://app.lumi.education/api/v1/run/r7c-q0/embed"
+      },
+      {
+        title: "2. Animasi Pembelajaran (Prinsip Animasi)",
+        type: "Educaplay • Memory Game",
+        desc: "Permainan mencocokkan kartu gambar gerakan dan istilah prinsip dasar animasi.",
+        url: "https://www.educaplay.com/game/31501128-prinsip_animasi_kartu_gambar_dan_istilah.html"
+      },
+      {
+        title: "3. Multimedia Interaktif (Kuis Konsep)",
+        type: "Wordwall • Gameshow Quiz",
+        desc: "Kuis interaktif menguji pemahaman prinsip perancangan media pembelajaran.",
+        url: "https://wordwall.net/embed/0a3d364e3d0743fc88937ee23ecea713?themeId=21&templateId=69&fontStackId=0"
+      },
+      {
+        title: "4. Teknologi Kinerja & Metodologi",
+        type: "Wordwall • Match Up",
+        desc: "Latihan mencocokkan istilah dan konsep kunci evaluasi kinerja serta penelitian.",
+        url: "https://wordwall.net/embed/fd3633ce5f734f31a8ce52b62b319759?themeId=1&templateId=2&fontStackId=0"
+      },
+      {
+        title: "5. Pengembangan Pembelajaran Online",
+        type: "Educaplay • Interactive Game",
+        desc: "Eksplorasi ekosistem pembelajaran daring dan kerangka Community of Inquiry (CoI).",
+        url: "https://www.educaplay.com/game/31501104-pembelajaran_daring_dan_community_of_inquiry.html"
+      }
+    ];
+
+    // Menggunakan key baru 'flaaz_modules_v3' agar cache lama yang kosong tidak menimpa link baru
+    let modules = JSON.parse(localStorage.getItem("flaaz_modules_v3")) || defaultModules;
+    let currentIndex = 0;
+
+    // Helper: Ambil URL bersih meskipun user menempel kode <iframe src="..."> utuh
+    function extractCleanUrl(rawText) {
+      if (!rawText) return "";
+      const text = rawText.trim();
+      const srcMatch = text.match(/src=["']([^"']+)["']/i);
+      if (srcMatch && srcMatch[1]) {
+        return srcMatch[1].trim();
+      }
+      return text;
+    }
+
+    function escapeAttr(str) {
+      return String(str || "")
+        .replace(/&/g, "&")
+        .replace(/"/g, "")
+        .replace(/</g, "<")
+        .replace(/>/g, ">");
+    }
+
+    // 2. RENDER PEMUTAR UTAMA & 5 KARTU BERJAJAR
+    function renderPlayerAndGrid() {
+      const current = modules[currentIndex];
+      const iframe = document.getElementById("main-iframe");
+
+      document.getElementById("active-badge").textContent = "Modul " + (currentIndex + 1) + " dari " + modules.length;
+      document.getElementById("active-type").textContent = current.type;
+      document.getElementById("active-title").textContent = current.title;
+      document.getElementById("active-desc").textContent = current.desc;
+      iframe.src = current.url;
+
+      const grid = document.getElementById("playlist-grid");
+      grid.innerHTML = modules.map(function (item, idx) {
+        const isActive = idx === currentIndex;
+        return (
+          '<div onclick="selectModule(' + idx + ')" class="cursor-pointer rounded-2xl p-4 border-2 transition-all flex flex-col justify-between ' +
+          (isActive
+            ? "bg-indigo-50/80 border-indigo-600 shadow-md"
+            : "bg-white border-slate-200 hover:border-indigo-300 hover:shadow-sm") +
+          '">' +
+            '<div>' +
+              '<div class="flex items-center justify-between gap-2 mb-2">' +
+                '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md ' +
+                (isActive ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-600") +
+                '">' +
+                  (isActive ? "▶ Sedang Dibuka" : "Modul #" + (idx + 1)) +
+                "</span>" +
+                '<span class="text-[10px] font-bold text-emerald-600">● Siap</span>' +
+              "</div>" +
+              '<h5 class="font-bold text-sm text-slate-900 leading-snug">' + escapeAttr(item.title) + "</h5>" +
+              '<p class="text-[11px] text-slate-500 mt-1 line-clamp-2">' + escapeAttr(item.desc) + "</p>" +
+            "</div>" +
+            '<div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between">' +
+              '<span class="text-[10px] font-bold text-indigo-600">' + escapeAttr(item.type) + "</span>" +
+              '<span class="text-xs font-bold text-slate-400">→</span>' +
+            "</div>" +
+          "</div>"
+        );
+      }).join("");
+    }
+
+    function selectModule(idx) {
+      currentIndex = idx;
+      renderPlayerAndGrid();
+    }
+
+    function prevModule() {
+      currentIndex = (currentIndex - 1 + modules.length) % modules.length;
+      renderPlayerAndGrid();
+    }
+
+    function nextModule() {
+      currentIndex = (currentIndex + 1) % modules.length;
+      renderPlayerAndGrid();
+    }
+
+    // 3. PANEL EDIT JUDUL & LINK
+    function toggleEditor() {
+      const panel = document.getElementById("editor-panel");
+      panel.classList.toggle("hidden");
+
+      if (!panel.classList.contains("hidden")) {
+        const container = document.getElementById("editor-inputs");
+        container.innerHTML = modules.map(function (item, idx) {
+          return (
+            '<div class="grid grid-cols-1 md:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-xl border border-slate-200">' +
+              '<input type="text" id="inp-title-' + idx + '" value="' + escapeAttr(item.title) + '" placeholder="Judul Materi" class="md:col-span-4 text-xs p-2 rounded-lg border border-slate-300 bg-white" />' +
+              '<input type="text" id="inp-type-' + idx + '" value="' + escapeAttr(item.type) + '" placeholder="Platform & Tipe" class="md:col-span-3 text-xs p-2 rounded-lg border border-slate-300 bg-white" />' +
+              '<input type="text" id="inp-url-' + idx + '" value="' + escapeAttr(item.url) + '" placeholder="URL Embed" class="md:col-span-5 text-xs p-2 rounded-lg border border-slate-300 bg-white" />' +
+            "</div>"
+          );
+        }).join("");
+      }
+    }
+
+    function saveModules() {
+      modules = modules.map(function (item, idx) {
+        const newTitle = document.getElementById("inp-title-" + idx).value.trim();
+        const newType = document.getElementById("inp-type-" + idx).value.trim();
+        const rawUrl = document.getElementById("inp-url-" + idx).value;
+        return {
+          title: newTitle || item.title,
+          type: newType || item.type,
+          desc: item.desc,
+          url: extractCleanUrl(rawUrl) || item.url
+        };
+      });
+      localStorage.setItem("flaaz_modules_v3", JSON.stringify(modules));
+      toggleEditor();
+      renderPlayerAndGrid();
+    }
+
+    function resetDefaultModules() {
+      modules = JSON.parse(JSON.stringify(defaultModules));
+      localStorage.removeItem("flaaz_modules_v3");
+      toggleEditor();
+      renderPlayerAndGrid();
+    }
+
+    // 4. NAVIGASI TAB & FITUR PENDUKUNG
+    function switchTab(tabName) {
+      ["review", "notes", "tasks"].forEach(function (name) {
+        const view = document.getElementById("view-" + name);
+        const btn = document.getElementById("tab-" + name);
+        if (name === tabName) {
+          view.classList.remove("hidden");
+          btn.className = "tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-600 shadow-sm transition";
+        } else {
+          view.classList.add("hidden");
+          btn.className = "tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition";
+        }
+      });
+    }
+
+    // Catatan Otomatis
+    const notesBox = document.getElementById("quick-notes");
+    notesBox.value = localStorage.getItem("flaaz_notes") || "";
+    notesBox.addEventListener("input", function () {
+      localStorage.setItem("flaaz_notes", notesBox.value);
+      const status = document.getElementById("note-status");
+      status.textContent = "Menyimpan...";
+      setTimeout(function () {
+        status.textContent = "Tersimpan";
+      }, 500);
+    });
+
+    // Daftar Tugas
+    let tasks = JSON.parse(localStorage.getItem("flaaz_tasks")) || [
+      { text: "Integrasi 5 modul interaktif (Lumi, Educaplay, Wordwall) ke Flaaz Studio", done: true },
+      { text: "Uji coba klik semua 5 kartu playlist sebelum dikumpulkan", done: false }
+    ];
+
+    function renderTasks() {
+      const list = document.getElementById("task-list");
+      list.innerHTML = tasks.map(function (t, idx) {
+        return (
+          '<li class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50">' +
+            '<label class="flex items-center gap-2.5 cursor-pointer text-sm ' + (t.done ? "line-through text-slate-400" : "text-slate-800") + '">' +
+              '<input type="checkbox" ' + (t.done ? "checked" : "") + ' onchange="toggleTask(' + idx + ')" class="rounded text-indigo-600" />' +
+              "<span>" + escapeAttr(t.text) + "</span>" +
+            "</label>" +
+            '<button onclick="deleteTask(' + idx + ')" class="text-xs text-rose-500 hover:text-rose-700 font-bold">Hapus</button>' +
+          "</li>"
+        );
+      }).join("");
+    }
+
+    function addTask() {
+      const input = document.getElementById("new-task-input");
+      if (!input.value.trim()) return;
+      tasks.push({ text: input.value.trim(), done: false });
+      input.value = "";
+      localStorage.setItem("flaaz_tasks", JSON.stringify(tasks));
+      renderTasks();
+    }
+
+    function toggleTask(idx) {
+      tasks[idx].done = !tasks[idx].done;
+      localStorage.setItem("flaaz_tasks", JSON.stringify(tasks));
+      renderTasks();
+    }
+
+    function deleteTask(idx) {
+      tasks.splice(idx, 1);
+      localStorage.setItem("flaaz_tasks", JSON.stringify(tasks));
+      renderTasks();
+    }
+
+    // Jalankan saat halaman siap
+    renderPlayerAndGrid();
+    renderTasks();
+  </script>
+</body>
+</html>
