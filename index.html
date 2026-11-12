@@ -17,10 +17,10 @@
   <!-- ========================================================= -->
   <!-- HALAMAN AWAL: LOGIN SCREEN FLAAZ STUDIO                   -->
   <!-- ========================================================= -->
-  <div id="login-screen" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-indigo-50 via-white to-slate-100">
+  <div id="login-screen" style="display: flex;" class="min-h-screen items-center justify-center p-4 bg-gradient-to-br from-indigo-50 via-white to-slate-100">
     <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 md:grid-cols-12">
 
-      <!-- Sisi Kiri: Branding & Info Platform -->
+      <!-- Sisi Kiri: Branding -->
       <div class="md:col-span-5 bg-indigo-600 text-white p-8 flex flex-col justify-between">
         <div>
           <div class="flex items-center gap-3 mb-8">
@@ -48,7 +48,7 @@
           </div>
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Auto-Save Catatan & Target Belajar</span>
+            <span>Catatan & Target Belajar Terintegrasi</span>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
             Student & Lecturer Portal
           </span>
           <h3 class="text-2xl font-extrabold text-slate-900 mt-2">Selamat Datang Kembali</h3>
-          <p class="text-xs text-slate-500 mt-1">Masukkan nama atau identitas untuk masuk ke workspace Flaaz Studio.</p>
+          <p class="text-xs text-slate-500 mt-1">Masukkan nama atau langsung gunakan tombol Masuk Cepat di bawah.</p>
         </div>
 
         <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
@@ -69,7 +69,6 @@
             <input
               type="text"
               id="login-name"
-              required
               placeholder="Contoh: Flaaz / Mahasiswa Tekpen"
               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
@@ -80,7 +79,6 @@
             <input
               type="text"
               id="login-nim"
-              required
               placeholder="Contoh: mahasiswa@upi.edu"
               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
@@ -92,7 +90,6 @@
               type="password"
               id="login-pass"
               value="flaaz2026"
-              required
               placeholder="••••••••"
               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
@@ -100,7 +97,7 @@
 
           <button
             type="submit"
-            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm py-3 rounded-xl shadow-sm transition">
+            class="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white font-bold text-sm py-3 rounded-xl shadow-sm transition cursor-pointer">
             Masuk ke Flaaz Studio →
           </button>
         </form>
@@ -110,15 +107,15 @@
             <div class="w-full border-t border-slate-200"></div>
           </div>
           <div class="relative flex justify-center text-xs">
-            <span class="bg-white px-3 text-slate-400">atau akses cepat untuk peninjauan</span>
+            <span class="bg-white px-3 text-slate-400">atau akses instan tanpa isi form</span>
           </div>
         </div>
 
         <button
           type="button"
           onclick="quickDemoLogin()"
-          class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-2.5 rounded-xl transition">
-          Masuk Cepat (Mode Dosen / Tamu)
+          class="w-full bg-slate-100 hover:bg-slate-200 active:scale-[0.99] text-slate-800 font-bold text-xs py-3 rounded-xl border border-slate-200 transition cursor-pointer">
+          ⚡ Masuk Cepat (Mode Dosen / Tamu)
         </button>
       </div>
 
@@ -128,7 +125,7 @@
   <!-- ========================================================= -->
   <!-- APLIKASI UTAMA (MUNCUL SETELAH LOGIN)                     -->
   <!-- ========================================================= -->
-  <div id="app-shell" class="hidden min-h-screen flex-col">
+  <div id="app-shell" style="display: none;" class="min-h-screen flex-col">
 
     <!-- NAVBAR ATAS -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
@@ -167,7 +164,7 @@
             </span>
             <span id="user-display-name" class="text-xs font-bold text-slate-700">Mahasiswa</span>
           </div>
-          <button onclick="handleLogout()" title="Keluar ke Halaman Login" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 transition">
+          <button onclick="handleLogout()" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 transition cursor-pointer">
             Keluar
           </button>
         </div>
@@ -177,9 +174,7 @@
     <!-- KONTEN UTAMA -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
 
-      <!-- ========================================================= -->
-      <!-- TAB 1: DASHBOARD RINGKASAN                                -->
-      <!-- ========================================================= -->
+      <!-- TAB 1: DASHBOARD -->
       <section id="view-dashboard" class="space-y-6">
         <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md">
           <div>
@@ -191,12 +186,11 @@
               Semua 5 media evaluasi interaktif (Lumi H5P, Educaplay, dan Wordwall) sudah siap diakses di menu Review Materi Kuliah.
             </p>
           </div>
-          <button onclick="switchTab('review')" class="bg-white text-indigo-700 hover:bg-indigo-50 font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-sm transition shrink-0">
+          <button onclick="switchTab('review')" class="bg-white text-indigo-700 hover:bg-indigo-50 font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-sm transition shrink-0 cursor-pointer">
             Mulai Review Materi (5 Modul) →
           </button>
         </div>
 
-        <!-- Kartu Statistik & Focus Timer -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div>
@@ -204,7 +198,7 @@
               <h3 class="text-3xl font-extrabold text-slate-900 mt-1">5 Modul</h3>
               <p class="text-xs text-slate-500 mt-1">1 Lumi H5P • 2 Educaplay • 2 Wordwall</p>
             </div>
-            <button onclick="switchTab('review')" class="mt-4 text-xs font-bold text-indigo-600 hover:underline text-left">
+            <button onclick="switchTab('review')" class="mt-4 text-xs font-bold text-indigo-600 hover:underline text-left cursor-pointer">
               Buka Pemutar Interaktif →
             </button>
           </div>
@@ -212,10 +206,10 @@
           <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div>
               <span class="text-xs font-bold text-slate-400">Target & Tugas Kuliah</span>
-              <h3 id="dash-task-summary" class="text-3xl font-extrabold text-slate-900 mt-1">0 Selesai</h3>
+              <h3 id="dash-task-summary" class="text-3xl font-extrabold text-slate-900 mt-1">1 / 2 Selesai</h3>
               <p class="text-xs text-slate-500 mt-1">Pantau progres pengerjaan tugasmu.</p>
             </div>
-            <button onclick="switchTab('tasks')" class="mt-4 text-xs font-bold text-indigo-600 hover:underline text-left">
+            <button onclick="switchTab('tasks')" class="mt-4 text-xs font-bold text-indigo-600 hover:underline text-left cursor-pointer">
               Kelola Daftar Deadline →
             </button>
           </div>
@@ -227,10 +221,10 @@
               <p class="text-xs text-slate-500 mt-1">Gunakan saat mengerjakan kuis review.</p>
             </div>
             <div class="mt-4 flex gap-2">
-              <button onclick="toggleTimer()" id="timer-toggle-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg transition">
+              <button onclick="toggleTimer()" id="timer-toggle-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg transition cursor-pointer">
                 Mulai
               </button>
-              <button onclick="resetTimer()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg transition">
+              <button onclick="resetTimer()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg transition cursor-pointer">
                 Reset
               </button>
             </div>
@@ -238,12 +232,8 @@
         </div>
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 2: REVIEW MATERI KULIAH (PLAYLIST 5 EMBED)            -->
-      <!-- ========================================================= -->
+      <!-- TAB 2: REVIEW MATERI KULIAH (PLAYLIST 5 EMBED) -->
       <section id="view-review" class="hidden space-y-6">
-
-        <!-- Header Halaman -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 mb-1">
@@ -253,7 +243,7 @@
             <p class="text-sm text-slate-500">Pilih salah satu dari 5 konten interaktif (Lumi H5P, Educaplay, dan Wordwall) di bawah untuk mulai belajar.</p>
           </div>
 
-          <button onclick="toggleEditor()" class="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition">
+          <button onclick="toggleEditor()" class="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition cursor-pointer">
             <span>⚙️ Edit Judul / Link Modul</span>
           </button>
         </div>
@@ -263,22 +253,22 @@
           <div class="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
             <div>
               <h3 class="font-bold text-slate-900 text-sm">Sesuaikan Judul, Platform, atau URL Embed</h3>
-              <p class="text-xs text-slate-500 mt-0.5">Kelima tautan sudah terisi otomatis. Kamu bisa mengubah judul mata kuliah atau mengganti link kapan saja.</p>
+              <p class="text-xs text-slate-500 mt-0.5">Kelima tautan sudah terisi otomatis. Kamu bisa mengubah judul atau mengganti link kapan saja.</p>
             </div>
-            <button onclick="toggleEditor()" class="text-slate-400 hover:text-slate-700 font-bold text-sm px-2">✕</button>
+            <button onclick="toggleEditor()" class="text-slate-400 hover:text-slate-700 font-bold text-sm px-2 cursor-pointer">✕</button>
           </div>
 
           <div id="editor-inputs" class="space-y-3"></div>
 
           <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
-            <button onclick="resetDefaultModules()" class="text-xs font-semibold text-rose-600 hover:underline">
+            <button onclick="resetDefaultModules()" class="text-xs font-semibold text-rose-600 hover:underline cursor-pointer">
               Kembalikan ke 5 Link Awal
             </button>
             <div class="flex gap-2">
-              <button onclick="toggleEditor()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">
+              <button onclick="toggleEditor()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer">
                 Batal
               </button>
-              <button onclick="saveModules()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2 rounded-xl shadow-sm transition">
+              <button onclick="saveModules()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2 rounded-xl shadow-sm transition cursor-pointer">
                 Simpan Perubahan
               </button>
             </div>
@@ -297,7 +287,7 @@
             </iframe>
           </div>
 
-          <!-- Info Modul yang Sedang Aktif -->
+          <!-- Info Modul Aktif -->
           <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border-t border-slate-100">
             <div>
               <div class="flex items-center gap-2 mb-1">
@@ -313,17 +303,17 @@
             </div>
 
             <div class="flex items-center gap-2 shrink-0">
-              <button onclick="prevModule()" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 transition">
+              <button onclick="prevModule()" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 transition cursor-pointer">
                 ← Sebelumnya
               </button>
-              <button onclick="nextModule()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-white transition">
+              <button onclick="nextModule()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-white transition cursor-pointer">
                 Selanjutnya →
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Daftar 5 Pilihan Modul Berjajar -->
+        <!-- Daftar 5 Pilihan Modul -->
         <div>
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-extrabold text-slate-800">Daftar Playlist Materi (5 Modul Interaktif)</h4>
@@ -331,34 +321,29 @@
           </div>
           <div id="playlist-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5"></div>
         </div>
-
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 3: CATATAN RINGKAS KULIAH                             -->
-      <!-- ========================================================= -->
+      <!-- TAB 3: CATATAN -->
       <section id="view-notes" class="hidden space-y-4">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
             <div>
               <h2 class="text-xl font-extrabold text-slate-900">Catatan & Rangkuman Kuliah</h2>
-              <p class="text-xs text-slate-500">Tersimpan otomatis di browser kamu.</p>
+              <p class="text-xs text-slate-500">Tersimpan otomatis selama sesi berlangsung.</p>
             </div>
-            <span id="note-status" class="text-xs font-semibold text-emerald-600">Tersimpan</span>
+            <span id="note-status" class="text-xs font-semibold text-emerald-600">Siap</span>
           </div>
           <textarea id="quick-notes" rows="12" placeholder="Tulis catatan penting dari hasil kuis atau materi kuliah di sini..." class="w-full rounded-xl border border-slate-200 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
         </div>
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 4: DEADLINE TUGAS                                     -->
-      <!-- ========================================================= -->
+      <!-- TAB 4: DEADLINE TUGAS -->
       <section id="view-tasks" class="hidden space-y-4">
         <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4 max-w-2xl">
           <h2 class="text-xl font-extrabold text-slate-900">Target & Deadline Tugas</h2>
           <div class="flex gap-2">
             <input type="text" id="new-task-input" placeholder="Tambah target belajar atau tugas baru..." class="flex-1 rounded-xl border border-slate-200 px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-            <button onclick="addTask()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl">
+            <button onclick="addTask()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer">
               Tambah
             </button>
           </div>
@@ -369,53 +354,76 @@
     </main>
   </div>
 
-  <!-- Script Resizer Resmi dari Lumi H5P -->
+  <!-- Script Resizer Lumi H5P -->
   <script src="https://app.lumi.education/api/v1/h5p/core/js/h5p-resizer.js" charset="UTF-8"></script>
 
   <script>
     // =========================================================
-    // 1. SISTEM LOGIN & SESI (MULAI DARI LOGIN SAAT DIBUKA)
+    // 0. SAFE STORAGE HELPER (ANTI-ERROR DI SEMUA BROWSER/HP)
     // =========================================================
-    function checkAuth() {
-      const savedUser = sessionStorage.getItem("flaaz_active_user");
-      const loginScreen = document.getElementById("login-screen");
-      const appShell = document.getElementById("app-shell");
-
-      if (savedUser) {
-        loginScreen.classList.add("hidden");
-        appShell.classList.remove("hidden");
-        appShell.classList.add("flex");
-        document.getElementById("user-display-name").textContent = savedUser;
-        document.getElementById("welcome-name").textContent = savedUser;
-        document.getElementById("user-avatar").textContent = savedUser.charAt(0).toUpperCase();
-      } else {
-        loginScreen.classList.remove("hidden");
-        appShell.classList.add("hidden");
-        appShell.classList.remove("flex");
+    var memoryStore = {};
+    function safeGet(key) {
+      try {
+        return window.localStorage.getItem(key) || memoryStore[key] || null;
+      } catch (e) {
+        return memoryStore[key] || null;
       }
+    }
+    function safeSet(key, val) {
+      memoryStore[key] = val;
+      try {
+        window.localStorage.setItem(key, val);
+      } catch (e) {}
+    }
+    function safeRemove(key) {
+      delete memoryStore[key];
+      try {
+        window.localStorage.removeItem(key);
+      } catch (e) {}
+    }
+
+    // =========================================================
+    // 1. SISTEM LOGIN LANGSUNG (TANPA TERBLOKIR BROWSER)
+    // =========================================================
+    var activeUser = null;
+
+    function openWorkspace(userName) {
+      activeUser = userName || "Mahasiswa Tekpen";
+      var loginScreen = document.getElementById("login-screen");
+      var appShell = document.getElementById("app-shell");
+
+      loginScreen.style.display = "none";
+      appShell.style.display = "flex";
+
+      document.getElementById("user-display-name").textContent = activeUser;
+      document.getElementById("welcome-name").textContent = activeUser;
+      document.getElementById("user-avatar").textContent = activeUser.charAt(0).toUpperCase();
     }
 
     function handleLogin(e) {
-      e.preventDefault();
-      const nameVal = document.getElementById("login-name").value.trim() || "Mahasiswa Tekpen";
-      sessionStorage.setItem("flaaz_active_user", nameVal);
-      checkAuth();
+      if (e && e.preventDefault) e.preventDefault();
+      var nameInput = document.getElementById("login-name");
+      var nameVal = nameInput ? nameInput.value.trim() : "";
+      openWorkspace(nameVal || "Mahasiswa Tekpen");
     }
 
     function quickDemoLogin() {
-      sessionStorage.setItem("flaaz_active_user", "Dosen / Penguji");
-      checkAuth();
+      openWorkspace("Dosen / Penguji");
     }
 
     function handleLogout() {
-      sessionStorage.removeItem("flaaz_active_user");
-      checkAuth();
+      activeUser = null;
+      var loginScreen = document.getElementById("login-screen");
+      var appShell = document.getElementById("app-shell");
+
+      appShell.style.display = "none";
+      loginScreen.style.display = "flex";
     }
 
     // =========================================================
     // 2. DATA 5 MODUL INTERAKTIF (SUDAH TERISI LINK ASLI)
     // =========================================================
-    const defaultModules = [
+    var defaultModules = [
       {
         title: "1. R&D Produk Tekpen (Model ADDIE)",
         type: "Lumi H5P • Drag the Words",
@@ -448,16 +456,19 @@
       }
     ];
 
-    let modules = JSON.parse(localStorage.getItem("flaaz_modules_v3")) || defaultModules;
-    let currentIndex = 0;
+    var modules = defaultModules.slice();
+    try {
+      var storedMod = safeGet("flaaz_modules_v3");
+      if (storedMod) modules = JSON.parse(storedMod);
+    } catch (e) {}
+
+    var currentIndex = 0;
 
     function extractCleanUrl(rawText) {
       if (!rawText) return "";
-      const text = rawText.trim();
-      const srcMatch = text.match(/src=["']([^"']+)["']/i);
-      if (srcMatch && srcMatch[1]) {
-        return srcMatch[1].trim();
-      }
+      var text = rawText.trim();
+      var srcMatch = text.match(/src=["']([^"']+)["']/i);
+      if (srcMatch && srcMatch[1]) return srcMatch[1].trim();
       return text;
     }
 
@@ -473,8 +484,8 @@
     // 3. RENDER PEMUTAR UTAMA & 5 KARTU BERJAJAR
     // =========================================================
     function renderPlayerAndGrid() {
-      const current = modules[currentIndex];
-      const iframe = document.getElementById("main-iframe");
+      var current = modules[currentIndex];
+      var iframe = document.getElementById("main-iframe");
 
       document.getElementById("active-badge").textContent = "Modul " + (currentIndex + 1) + " dari " + modules.length;
       document.getElementById("active-type").textContent = current.type;
@@ -482,9 +493,9 @@
       document.getElementById("active-desc").textContent = current.desc;
       iframe.src = current.url;
 
-      const grid = document.getElementById("playlist-grid");
+      var grid = document.getElementById("playlist-grid");
       grid.innerHTML = modules.map(function (item, idx) {
-        const isActive = idx === currentIndex;
+        var isActive = idx === currentIndex;
         return (
           '<div onclick="selectModule(' + idx + ')" class="cursor-pointer rounded-2xl p-4 border-2 transition-all flex flex-col justify-between ' +
           (isActive
@@ -528,11 +539,11 @@
     }
 
     function toggleEditor() {
-      const panel = document.getElementById("editor-panel");
+      var panel = document.getElementById("editor-panel");
       panel.classList.toggle("hidden");
 
       if (!panel.classList.contains("hidden")) {
-        const container = document.getElementById("editor-inputs");
+        var container = document.getElementById("editor-inputs");
         container.innerHTML = modules.map(function (item, idx) {
           return (
             '<div class="grid grid-cols-1 md:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-xl border border-slate-200">' +
@@ -547,9 +558,9 @@
 
     function saveModules() {
       modules = modules.map(function (item, idx) {
-        const newTitle = document.getElementById("inp-title-" + idx).value.trim();
-        const newType = document.getElementById("inp-type-" + idx).value.trim();
-        const rawUrl = document.getElementById("inp-url-" + idx).value;
+        var newTitle = document.getElementById("inp-title-" + idx).value.trim();
+        var newType = document.getElementById("inp-type-" + idx).value.trim();
+        var rawUrl = document.getElementById("inp-url-" + idx).value;
         return {
           title: newTitle || item.title,
           type: newType || item.type,
@@ -557,14 +568,14 @@
           url: extractCleanUrl(rawUrl) || item.url
         };
       });
-      localStorage.setItem("flaaz_modules_v3", JSON.stringify(modules));
+      safeSet("flaaz_modules_v3", JSON.stringify(modules));
       toggleEditor();
       renderPlayerAndGrid();
     }
 
     function resetDefaultModules() {
       modules = JSON.parse(JSON.stringify(defaultModules));
-      localStorage.removeItem("flaaz_modules_v3");
+      safeRemove("flaaz_modules_v3");
       toggleEditor();
       renderPlayerAndGrid();
     }
@@ -574,8 +585,8 @@
     // =========================================================
     function switchTab(tabName) {
       ["dashboard", "review", "notes", "tasks"].forEach(function (name) {
-        const view = document.getElementById("view-" + name);
-        const btn = document.getElementById("tab-" + name);
+        var view = document.getElementById("view-" + name);
+        var btn = document.getElementById("tab-" + name);
         if (name === tabName) {
           view.classList.remove("hidden");
           btn.className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-600 shadow-sm transition whitespace-nowrap";
@@ -586,18 +597,17 @@
       });
     }
 
-    // Timer Pomodoro
-    let timerSeconds = 25 * 60;
-    let timerInterval = null;
+    var timerSeconds = 25 * 60;
+    var timerInterval = null;
 
     function updateTimerDisplay() {
-      const m = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
-      const s = String(timerSeconds % 60).padStart(2, "0");
+      var m = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
+      var s = String(timerSeconds % 60).padStart(2, "0");
       document.getElementById("timer-display").textContent = m + ":" + s;
     }
 
     function toggleTimer() {
-      const btn = document.getElementById("timer-toggle-btn");
+      var btn = document.getElementById("timer-toggle-btn");
       if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
@@ -625,27 +635,26 @@
       document.getElementById("timer-toggle-btn").textContent = "Mulai";
     }
 
-    // Catatan Otomatis
-    const notesBox = document.getElementById("quick-notes");
-    notesBox.value = localStorage.getItem("flaaz_notes") || "";
+    var notesBox = document.getElementById("quick-notes");
+    notesBox.value = safeGet("flaaz_notes") || "";
     notesBox.addEventListener("input", function () {
-      localStorage.setItem("flaaz_notes", notesBox.value);
-      const status = document.getElementById("note-status");
-      status.textContent = "Menyimpan...";
-      setTimeout(function () {
-        status.textContent = "Tersimpan";
-      }, 500);
+      safeSet("flaaz_notes", notesBox.value);
+      var status = document.getElementById("note-status");
+      status.textContent = "Tersimpan";
     });
 
-    // Daftar Tugas
-    let tasks = JSON.parse(localStorage.getItem("flaaz_tasks")) || [
+    var tasks = [
       { text: "Integrasi 5 modul interaktif (Lumi, Educaplay, Wordwall) ke Flaaz Studio", done: true },
-      { text: "Uji coba login & seluruh 5 modul kuis sebelum dikumpulkan", done: false }
+      { text: "Uji coba seluruh 5 modul kuis sebelum dikumpulkan", done: false }
     ];
+    try {
+      var storedTasks = safeGet("flaaz_tasks");
+      if (storedTasks) tasks = JSON.parse(storedTasks);
+    } catch (e) {}
 
     function renderTasks() {
-      const list = document.getElementById("task-list");
-      const doneCount = tasks.filter(function (t) { return t.done; }).length;
+      var list = document.getElementById("task-list");
+      var doneCount = tasks.filter(function (t) { return t.done; }).length;
       document.getElementById("dash-task-summary").textContent = doneCount + " / " + tasks.length + " Selesai";
 
       list.innerHTML = tasks.map(function (t, idx) {
@@ -655,35 +664,34 @@
               '<input type="checkbox" ' + (t.done ? "checked" : "") + ' onchange="toggleTask(' + idx + ')" class="rounded text-indigo-600" />' +
               "<span>" + escapeAttr(t.text) + "</span>" +
             "</label>" +
-            '<button onclick="deleteTask(' + idx + ')" class="text-xs text-rose-500 hover:text-rose-700 font-bold">Hapus</button>' +
+            '<button onclick="deleteTask(' + idx + ')" class="text-xs text-rose-500 hover:text-rose-700 font-bold cursor-pointer">Hapus</button>' +
           "</li>"
         );
       }).join("");
     }
 
     function addTask() {
-      const input = document.getElementById("new-task-input");
+      var input = document.getElementById("new-task-input");
       if (!input.value.trim()) return;
       tasks.push({ text: input.value.trim(), done: false });
       input.value = "";
-      localStorage.setItem("flaaz_tasks", JSON.stringify(tasks));
+      safeSet("flaaz_tasks", JSON.stringify(tasks));
       renderTasks();
     }
 
     function toggleTask(idx) {
       tasks[idx].done = !tasks[idx].done;
-      localStorage.setItem("flaaz_tasks", JSON.stringify(tasks));
+      safeSet("flaaz_tasks", JSON.stringify(tasks));
       renderTasks();
     }
 
     function deleteTask(idx) {
       tasks.splice(idx, 1);
-      localStorage.setItem("flaaz_tasks", JSON.stringify(tasks));
+      safeSet("flaaz_tasks", JSON.stringify(tasks));
       renderTasks();
     }
 
-    // Inisialisasi saat halaman dimuat
-    checkAuth();
+    // Jalankan inisialisasi
     renderPlayerAndGrid();
     renderTasks();
   </script>
