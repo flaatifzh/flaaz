@@ -1,667 +1,248 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full bg-slate-900 text-slate-100">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flaaz Studio — All-in-One Student Workspace</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
-
-  <!-- Peringatan otomatis jika dibuka di aplikasi yang memblokir JavaScript -->
-  <noscript>
-    <div style="background:#fee2e2;color:#991b1b;padding:16px;text-align:center;font-weight:bold;font-size:14px;">
-      ⚠️ Browser/aplikasi ini memblokir JavaScript sehingga tombol tidak bisa diklik. Silakan salin link GitHub Pages kamu dan buka langsung di Google Chrome atau Safari.
-    </div>
-  </noscript>
-
-  <!-- ========================================================= -->
-  <!-- HALAMAN AWAL: LOGIN SCREEN FLAAZ STUDIO                   -->
-  <!-- ========================================================= -->
-  <div id="login-screen" style="display: flex;" class="min-h-screen items-center justify-center p-4 bg-gradient-to-br from-indigo-50 via-white to-slate-100">
-    <div class="w-full max-w-4xl bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 md:grid-cols-12">
-
-      <!-- Sisi Kiri: Branding -->
-      <div class="md:col-span-5 bg-indigo-600 text-white p-8 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center gap-3 mb-8">
-            <div class="w-10 h-10 rounded-xl bg-white text-indigo-600 font-extrabold text-lg flex items-center justify-center shadow-sm">
-              F
-            </div>
-            <div>
-              <h1 class="font-extrabold text-lg leading-tight">Flaaz Studio</h1>
-              <p class="text-xs text-indigo-200">Educational Technology Hub</p>
-            </div>
-          </div>
-
-          <h2 class="text-2xl font-extrabold leading-snug mb-3">
-            Ruang Belajar & Evaluasi Interaktif Terpadu.
-          </h2>
-          <p class="text-xs text-indigo-100 leading-relaxed">
-            Akses 5 modul media pembelajaran interaktif (Lumi H5P, Educaplay, dan Wordwall), ringkasan materi, serta manajemen deadline tugas kuliah dalam satu platform.
-          </p>
-        </div>
-
-        <div class="mt-8 pt-6 border-t border-indigo-500/60 space-y-2 text-xs text-indigo-100">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>5 Modul Kuis & Game Interaktif Aktif</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Catatan & Target Belajar Terintegrasi</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sisi Kanan: Form Login -->
-      <div class="md:col-span-7 p-8 sm:p-10 flex flex-col justify-center">
-        <div class="mb-6">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">
-            Student & Lecturer Portal
-          </span>
-          <h3 class="text-2xl font-extrabold text-slate-900 mt-2">Selamat Datang Kembali</h3>
-          <p class="text-xs text-slate-500 mt-1">Masukkan nama atau langsung tekan tombol Masuk Cepat di bawah.</p>
-        </div>
-
-        <form id="login-form" onsubmit="event.preventDefault(); document.getElementById('login-screen').style.display='none'; document.getElementById('app-shell').style.display='flex'; if(window.syncUserName) syncUserName(); return false;" class="space-y-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1.5">Nama Lengkap / Mahasiswa</label>
-            <input
-              type="text"
-              id="login-name"
-              placeholder="Contoh: Flaaz / Mahasiswa Tekpen"
-              class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1.5">Email / NIM</label>
-            <input
-              type="text"
-              id="login-nim"
-              placeholder="Contoh: mahasiswa@upi.edu"
-              class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1.5">Kata Sandi</label>
-            <input
-              type="password"
-              id="login-pass"
-              value="flaaz2026"
-              placeholder="••••••••"
-              class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-
-          <button
-            type="button"
-            onclick="document.getElementById('login-screen').style.display='none'; document.getElementById('app-shell').style.display='flex'; if(window.syncUserName) syncUserName();"
-            class="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white font-bold text-sm py-3 rounded-xl shadow-sm transition cursor-pointer">
-            Masuk ke Flaaz Studio →
-          </button>
-        </form>
-
-        <div class="relative my-5">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-slate-200"></div>
-          </div>
-          <div class="relative flex justify-center text-xs">
-            <span class="bg-white px-3 text-slate-400">atau akses instan tanpa isi form</span>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onclick="document.getElementById('login-screen').style.display='none'; document.getElementById('app-shell').style.display='flex'; if(window.syncUserName) syncUserName('Dosen / Penguji');"
-          class="w-full bg-slate-100 hover:bg-slate-200 active:scale-[0.99] text-slate-800 font-bold text-xs py-3 rounded-xl border border-slate-200 transition cursor-pointer">
-          ⚡ Masuk Cepat (Mode Dosen / Tamu)
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ========================================================= -->
-  <!-- APLIKASI UTAMA (MUNCUL SETELAH LOGIN)                     -->
-  <!-- ========================================================= -->
-  <div id="app-shell" style="display: none;" class="min-h-screen flex-col">
-
-    <!-- NAVBAR ATAS -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white font-extrabold flex items-center justify-center shadow-sm">
-            F
-          </div>
-          <div>
-            <h1 class="font-extrabold text-base sm:text-lg text-slate-900 leading-tight">Flaaz Studio</h1>
-            <p class="text-[11px] text-slate-500 hidden sm:block">All-in-One Student Workspace</p>
-          </div>
-        </div>
-
-        <!-- Menu Navigasi Tab -->
-        <nav class="flex items-center gap-1 sm:gap-1.5 bg-slate-100 p-1 rounded-xl overflow-x-auto">
-          <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-600 shadow-sm transition whitespace-nowrap">
-            Dashboard
-          </button>
-          <button onclick="switchTab('review')" id="tab-review" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition whitespace-nowrap">
-            Review Materi Kuliah
-          </button>
-          <button onclick="switchTab('notes')" id="tab-notes" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition whitespace-nowrap">
-            Catatan
-          </button>
-          <button onclick="switchTab('tasks')" id="tab-tasks" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition whitespace-nowrap">
-            Deadline
-          </button>
-        </nav>
-
-        <!-- Profil Pengguna & Logout -->
-        <div class="flex items-center gap-2.5 shrink-0">
-          <div class="hidden md:flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
-            <span id="user-avatar" class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center">
-              F
-            </span>
-            <span id="user-display-name" class="text-xs font-bold text-slate-700">Mahasiswa</span>
-          </div>
-          <button onclick="document.getElementById('app-shell').style.display='none'; document.getElementById('login-screen').style.display='flex';" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 transition cursor-pointer">
-            Keluar
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- KONTEN UTAMA -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
-
-      <!-- TAB 1: DASHBOARD -->
-      <section id="view-dashboard" class="space-y-6">
-        <div class="bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md">
-          <div>
-            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/20 text-white mb-2">
-              Semester Workspace
-            </span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold">Halo, <span id="welcome-name">Mahasiswa</span>!</h2>
-            <p class="text-xs sm:text-sm text-indigo-100 mt-1 max-w-xl">
-              Semua 5 media evaluasi interaktif (Lumi H5P, Educaplay, dan Wordwall) sudah siap diakses di menu Review Materi Kuliah.
-            </p>
-          </div>
-          <button onclick="switchTab('review')" class="bg-white text-indigo-700 hover:bg-indigo-50 font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-sm transition shrink-0 cursor-pointer">
-            Mulai Review Materi (5 Modul) →
-          </button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-            <div>
-              <span class="text-xs font-bold text-slate-400">Modul Interaktif Terpasang</span>
-              <h3 class="text-3xl font-extrabold text-slate-900 mt-1">5 Modul</h3>
-              <p class="text-xs text-slate-500 mt-1">1 Lumi H5P • 2 Educaplay • 2 Wordwall</p>
-            </div>
-            <button onclick="switchTab('review')" class="mt-4 text-xs font-bold text-indigo-600 hover:underline text-left cursor-pointer">
-              Buka Pemutar Interaktif →
-            </button>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-            <div>
-              <span class="text-xs font-bold text-slate-400">Target & Tugas Kuliah</span>
-              <h3 id="dash-task-summary" class="text-3xl font-extrabold text-slate-900 mt-1">1 / 2 Selesai</h3>
-              <p class="text-xs text-slate-500 mt-1">Pantau progres pengerjaan tugasmu.</p>
-            </div>
-            <button onclick="switchTab('tasks')" class="mt-4 text-xs font-bold text-indigo-600 hover:underline text-left cursor-pointer">
-              Kelola Daftar Deadline →
-            </button>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-            <div>
-              <span class="text-xs font-bold text-slate-400">Timer Fokus Belajar (Pomodoro)</span>
-              <h3 id="timer-display" class="text-3xl font-extrabold text-indigo-600 mt-1 font-mono">25:00</h3>
-              <p class="text-xs text-slate-500 mt-1">Gunakan saat mengerjakan kuis review.</p>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button onclick="toggleTimer()" id="timer-toggle-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg transition cursor-pointer">
-                Mulai
-              </button>
-              <button onclick="resetTimer()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-lg transition cursor-pointer">
-                Reset
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 2: REVIEW MATERI KULIAH (PLAYLIST 5 EMBED) -->
-      <section id="view-review" class="hidden space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 mb-1">
-              Interactive Learning Hub • 5 Modul Aktif
-            </span>
-            <h2 class="text-2xl font-extrabold text-slate-900">Review Materi Kuliah</h2>
-            <p class="text-sm text-slate-500">Pilih salah satu dari 5 konten interaktif (Lumi H5P, Educaplay, dan Wordwall) di bawah untuk mulai belajar.</p>
-          </div>
-
-          <button onclick="toggleEditor()" class="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition cursor-pointer">
-            <span>⚙️ Edit Judul / Link Modul</span>
-          </button>
-        </div>
-
-        <!-- Panel Edit Judul & Link -->
-        <div id="editor-panel" class="hidden bg-white border border-indigo-200 rounded-2xl p-5 shadow-lg space-y-4">
-          <div class="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
-            <div>
-              <h3 class="font-bold text-slate-900 text-sm">Sesuaikan Judul, Platform, atau URL Embed</h3>
-              <p class="text-xs text-slate-500 mt-0.5">Kelima tautan sudah terisi otomatis. Kamu bisa mengubah judul atau mengganti link kapan saja.</p>
-            </div>
-            <button onclick="toggleEditor()" class="text-slate-400 hover:text-slate-700 font-bold text-sm px-2 cursor-pointer">✕</button>
-          </div>
-
-          <div id="editor-inputs" class="space-y-3"></div>
-
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
-            <button onclick="resetDefaultModules()" class="text-xs font-semibold text-rose-600 hover:underline cursor-pointer">
-              Kembalikan ke 5 Link Awal
-            </button>
-            <div class="flex gap-2">
-              <button onclick="toggleEditor()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer">
-                Batal
-              </button>
-              <button onclick="saveModules()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2 rounded-xl shadow-sm transition cursor-pointer">
-                Simpan Perubahan
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Layar Pemutar Utama -->
-        <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-          <div class="w-full h-[520px] sm:h-[600px] lg:h-[660px] bg-slate-900 relative">
-            <iframe
-              id="main-iframe"
-              src="https://app.lumi.education/api/v1/run/r7c-q0/embed"
-              class="w-full h-full border-0 relative z-10"
-              allowfullscreen="allowfullscreen"
-              allow="fullscreen; autoplay; allow-top-navigation-by-user-activation; geolocation *; microphone *; camera *; midi *; encrypted-media *">
-            </iframe>
-          </div>
-
-          <!-- Info Modul Aktif -->
-          <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border-t border-slate-100">
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span id="active-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-100">
-                  Modul 1 dari 5
-                </span>
-                <span id="active-type" class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
-                  Lumi H5P • Drag the Words
-                </span>
-              </div>
-              <h3 id="active-title" class="text-lg font-extrabold text-slate-900">1. R&D Produk Tekpen (Model ADDIE)</h3>
-              <p id="active-desc" class="text-xs text-slate-500 mt-0.5">Review tahapan Analysis, Design, Development, Implementation, Evaluation & uji validasi ahli.</p>
-            </div>
-
-            <div class="flex items-center gap-2 shrink-0">
-              <button onclick="prevModule()" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 transition cursor-pointer">
-                ← Sebelumnya
-              </button>
-              <button onclick="nextModule()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-white transition cursor-pointer">
-                Selanjutnya →
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Daftar 5 Pilihan Modul -->
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <h4 class="text-sm font-extrabold text-slate-800">Daftar Playlist Materi (5 Modul Interaktif)</h4>
-            <span class="text-xs text-slate-400">Klik kartu di bawah untuk berpindah modul</span>
-          </div>
-          <div id="playlist-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5"></div>
-        </div>
-      </section>
-
-      <!-- TAB 3: CATATAN -->
-      <section id="view-notes" class="hidden space-y-4">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="text-xl font-extrabold text-slate-900">Catatan & Rangkuman Kuliah</h2>
-              <p class="text-xs text-slate-500">Tersimpan otomatis selama sesi berlangsung.</p>
-            </div>
-            <span id="note-status" class="text-xs font-semibold text-emerald-600">Siap</span>
-          </div>
-          <textarea id="quick-notes" rows="12" placeholder="Tulis catatan penting dari hasil kuis atau materi kuliah di sini..." class="w-full rounded-xl border border-slate-200 p-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-        </div>
-      </section>
-
-      <!-- TAB 4: DEADLINE TUGAS -->
-      <section id="view-tasks" class="hidden space-y-4">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4 max-w-2xl">
-          <h2 class="text-xl font-extrabold text-slate-900">Target & Deadline Tugas</h2>
-          <div class="flex gap-2">
-            <input type="text" id="new-task-input" placeholder="Tambah target belajar atau tugas baru..." class="flex-1 rounded-xl border border-slate-200 px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-            <button onclick="addTask()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer">
-              Tambah
-            </button>
-          </div>
-          <ul id="task-list" class="space-y-2"></ul>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- Script Resizer Lumi H5P -->
-  <script src="https://app.lumi.education/api/v1/h5p/core/js/h5p-resizer.js" charset="UTF-8"></script>
-
-  <script>
-    var memoryStore = {};
-    function safeGet(key) {
-      try {
-        return window.localStorage.getItem(key) || memoryStore[key] || null;
-      } catch (e) {
-        return memoryStore[key] || null;
-      }
-    }
-    function safeSet(key, val) {
-      memoryStore[key] = val;
-      try {
-        window.localStorage.setItem(key, val);
-      } catch (e) {}
-    }
-    function safeRemove(key) {
-      delete memoryStore[key];
-      try {
-        window.localStorage.removeItem(key);
-      } catch (e) {}
-    }
-
-    // Sinkronisasi nama user setelah login
-    window.syncUserName = function (forcedName) {
-      var nameInput = document.getElementById("login-name");
-      var typedName = nameInput ? nameInput.value.trim() : "";
-      var finalName = forcedName || typedName || "Mahasiswa Tekpen";
-
-      document.getElementById("user-display-name").textContent = finalName;
-      document.getElementById("welcome-name").textContent = finalName;
-      document.getElementById("user-avatar").textContent = finalName.charAt(0).toUpperCase();
-    };
-
-    var defaultModules = [
-      {
-        title: "1. R&D Produk Tekpen (Model ADDIE)",
-        type: "Lumi H5P • Drag the Words",
-        desc: "Review tahapan Analysis, Design, Development, Implementation, Evaluation & uji validasi ahli.",
-        url: "https://app.lumi.education/api/v1/run/r7c-q0/embed"
-      },
-      {
-        title: "2. Animasi Pembelajaran (Prinsip Animasi)",
-        type: "Educaplay • Memory Game",
-        desc: "Permainan mencocokkan kartu gambar gerakan dan istilah prinsip dasar animasi.",
-        url: "https://www.educaplay.com/game/31501128-prinsip_animasi_kartu_gambar_dan_istilah.html"
-      },
-      {
-        title: "3. Multimedia Interaktif (Kuis Konsep)",
-        type: "Wordwall • Gameshow Quiz",
-        desc: "Kuis interaktif menguji pemahaman prinsip perancangan media pembelajaran.",
-        url: "https://wordwall.net/embed/0a3d364e3d0743fc88937ee23ecea713?themeId=21&templateId=69&fontStackId=0"
-      },
-      {
-        title: "4. Teknologi Kinerja & Metodologi",
-        type: "Wordwall • Match Up",
-        desc: "Latihan mencocokkan istilah dan konsep kunci evaluasi kinerja serta penelitian.",
-        url: "https://wordwall.net/embed/fd3633ce5f734f31a8ce52b62b319759?themeId=1&templateId=2&fontStackId=0"
-      },
-      {
-        title: "5. Pengembangan Pembelajaran Online",
-        type: "Educaplay • Interactive Game",
-        desc: "Eksplorasi ekosistem pembelajaran daring dan kerangka Community of Inquiry (CoI).",
-        url: "https://www.educaplay.com/game/31501104-pembelajaran_daring_dan_community_of_inquiry.html"
-      }
-    ];
-
-    var modules = defaultModules.slice();
-    try {
-      var storedMod = safeGet("flaaz_modules_v3");
-      if (storedMod) modules = JSON.parse(storedMod);
-    } catch (e) {}
-
-    var currentIndex = 0;
-
-    function extractCleanUrl(rawText) {
-      if (!rawText) return "";
-      var text = rawText.trim();
-      var srcMatch = text.match(/src=["']([^"']+)["']/i);
-      if (srcMatch && srcMatch[1]) return srcMatch[1].trim();
-      return text;
-    }
-
-    function escapeAttr(str) {
-      return String(str || "")
-        .replace(/&/g, "&")
-        .replace(/"/g, """)
-        .replace(/</g, "<")
-        .replace(/>/g, ">");
-    }
-
-    function renderPlayerAndGrid() {
-      var current = modules[currentIndex];
-      var iframe = document.getElementById("main-iframe");
-
-      document.getElementById("active-badge").textContent = "Modul " + (currentIndex + 1) + " dari " + modules.length;
-      document.getElementById("active-type").textContent = current.type;
-      document.getElementById("active-title").textContent = current.title;
-      document.getElementById("active-desc").textContent = current.desc;
-      iframe.src = current.url;
-
-      var grid = document.getElementById("playlist-grid");
-      grid.innerHTML = modules.map(function (item, idx) {
-        var isActive = idx === currentIndex;
-        return (
-          '<div onclick="selectModule(' + idx + ')" class="cursor-pointer rounded-2xl p-4 border-2 transition-all flex flex-col justify-between ' +
-          (isActive
-            ? "bg-indigo-50/80 border-indigo-600 shadow-md"
-            : "bg-white border-slate-200 hover:border-indigo-300 hover:shadow-sm") +
-          '">' +
-            '<div>' +
-              '<div class="flex items-center justify-between gap-2 mb-2">' +
-                '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md ' +
-                (isActive ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-600") +
-                '">' +
-                  (isActive ? "▶ Sedang Dibuka" : "Modul #" + (idx + 1)) +
-                "</span>" +
-                '<span class="text-[10px] font-bold text-emerald-600">● Siap</span>' +
-              "</div>" +
-              '<h5 class="font-bold text-sm text-slate-900 leading-snug">' + escapeAttr(item.title) + "</h5>" +
-              '<p class="text-[11px] text-slate-500 mt-1 line-clamp-2">' + escapeAttr(item.desc) + "</p>" +
-            "</div>" +
-            '<div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between">' +
-              '<span class="text-[10px] font-bold text-indigo-600">' + escapeAttr(item.type) + "</span>" +
-              '<span class="text-xs font-bold text-slate-400">→</span>' +
-            "</div>" +
-          "</div>"
-        );
-      }).join("");
-    }
-
-    function selectModule(idx) {
-      currentIndex = idx;
-      renderPlayerAndGrid();
-    }
-
-    function prevModule() {
-      currentIndex = (currentIndex - 1 + modules.length) % modules.length;
-      renderPlayerAndGrid();
-    }
-
-    function nextModule() {
-      currentIndex = (currentIndex + 1) % modules.length;
-      renderPlayerAndGrid();
-    }
-
-    function toggleEditor() {
-      var panel = document.getElementById("editor-panel");
-      panel.classList.toggle("hidden");
-
-      if (!panel.classList.contains("hidden")) {
-        var container = document.getElementById("editor-inputs");
-        container.innerHTML = modules.map(function (item, idx) {
-          return (
-            '<div class="grid grid-cols-1 md:grid-cols-12 gap-2 p-3 bg-slate-50 rounded-xl border border-slate-200">' +
-              '<input type="text" id="inp-title-' + idx + '" value="' + escapeAttr(item.title) + '" placeholder="Judul Materi" class="md:col-span-4 text-xs p-2 rounded-lg border border-slate-300 bg-white" />' +
-              '<input type="text" id="inp-type-' + idx + '" value="' + escapeAttr(item.type) + '" placeholder="Platform & Tipe" class="md:col-span-3 text-xs p-2 rounded-lg border border-slate-300 bg-white" />' +
-              '<input type="text" id="inp-url-' + idx + '" value="' + escapeAttr(item.url) + '" placeholder="URL Embed" class="md:col-span-5 text-xs p-2 rounded-lg border border-slate-300 bg-white" />' +
-            "</div>"
-          );
-        }).join("");
-      }
-    }
-
-    function saveModules() {
-      modules = modules.map(function (item, idx) {
-        var newTitle = document.getElementById("inp-title-" + idx).value.trim();
-        var newType = document.getElementById("inp-type-" + idx).value.trim();
-        var rawUrl = document.getElementById("inp-url-" + idx).value;
-        return {
-          title: newTitle || item.title,
-          type: newType || item.type,
-          desc: item.desc,
-          url: extractCleanUrl(rawUrl) || item.url
-        };
-      });
-      safeSet("flaaz_modules_v3", JSON.stringify(modules));
-      toggleEditor();
-      renderPlayerAndGrid();
-    }
-
-    function resetDefaultModules() {
-      modules = JSON.parse(JSON.stringify(defaultModules));
-      safeRemove("flaaz_modules_v3");
-      toggleEditor();
-      renderPlayerAndGrid();
-    }
-
-    function switchTab(tabName) {
-      ["dashboard", "review", "notes", "tasks"].forEach(function (name) {
-        var view = document.getElementById("view-" + name);
-        var btn = document.getElementById("tab-" + name);
-        if (name === tabName) {
-          view.classList.remove("hidden");
-          btn.className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-indigo-600 shadow-sm transition whitespace-nowrap";
-        } else {
-          view.classList.add("hidden");
-          btn.className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition whitespace-nowrap";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flaaz Personal Hub & LMS Workspace</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN for Decision Wheel Victory -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * {
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-      });
-    }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.8);
+        }
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        /* Flashcard 3D Flip Effects */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        /* Tab Smooth Transition */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="h-full bg-slate-950 text-slate-100 flex flex-col overflow-hidden">
 
-    var timerSeconds = 25 * 60;
-    var timerInterval = null;
+    <!-- Authentication Screen -->
+    <div id="authScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-xl transition-all duration-300 p-4">
+        <div class="glass-card w-full max-w-md p-8 rounded-3xl shadow-2xl border border-indigo-500/20 text-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
-    function updateTimerDisplay() {
-      var m = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
-      var s = String(timerSeconds % 60).padStart(2, "0");
-      document.getElementById("timer-display").textContent = m + ":" + s;
-    }
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white text-2xl shadow-lg shadow-indigo-500/30 mb-4">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h1 class="text-2xl font-extrabold text-white tracking-tight">Flaaz Personal Hub</h1>
+            <p class="text-slate-400 text-sm mt-1 mb-6">Life & Productivity Workspace LMS</p>
 
-    function toggleTimer() {
-      var btn = document.getElementById("timer-toggle-btn");
-      if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-        btn.textContent = "Lanjut";
-      } else {
-        btn.textContent = "Jeda";
-        timerInterval = setInterval(function () {
-          if (timerSeconds > 0) {
-            timerSeconds--;
-            updateTimerDisplay();
-          } else {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            btn.textContent = "Mulai";
-          }
-        }, 1000);
-      }
-    }
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nama Panggilan</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="loginUsername" required placeholder="Masukkan nama panggilanmu..." class="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700/60 rounded-xl text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm">
+                    </div>
+                </div>
 
-    function resetTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerSeconds = 25 * 60;
-      updateTimerDisplay();
-      document.getElementById("timer-toggle-btn").textContent = "Mulai";
-    }
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Kata Sandi Workspace</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="loginPassword" required value="flaaz123" placeholder="Sandi..." class="w-full pl-10 pr-10 py-3 bg-slate-900/80 border border-slate-700/60 rounded-xl text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-sm">
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white">
+                            <i id="passwordToggleIcon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="text-[11px] text-slate-500 mt-1 block">*Sandi bawaan sudah terisi otomatis: <code class="text-indigo-400">flaaz123</code></span>
+                </div>
 
-    var notesBox = document.getElementById("quick-notes");
-    notesBox.value = safeGet("flaaz_notes") || "";
-    notesBox.addEventListener("input", function () {
-      safeSet("flaaz_notes", notesBox.value);
-      var status = document.getElementById("note-status");
-      status.textContent = "Tersimpan";
-    });
+                <button type="submit" class="w-full py-3.5 px-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Masuk ke Workspace</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </form>
+        </div>
+    </div>
 
-    var tasks = [
-      { text: "Integrasi 5 modul interaktif (Lumi, Educaplay, Wordwall) ke Flaaz Studio", done: true },
-      { text: "Uji coba seluruh 5 modul kuis sebelum dikumpulkan", done: false }
-    ];
-    try {
-      var storedTasks = safeGet("flaaz_tasks");
-      if (storedTasks) tasks = JSON.parse(storedTasks);
-    } catch (e) {}
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="mobileBackdrop" onclick="closeMobileSidebar()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-20 hidden md:hidden"></div>
 
-    function renderTasks() {
-      var list = document.getElementById("task-list");
-      var doneCount = tasks.filter(function (t) { return t.done; }).length;
-      document.getElementById("dash-task-summary").textContent = doneCount + " / " + tasks.length + " Selesai";
+    <!-- Main Application Shell -->
+    <div class="flex h-full w-full overflow-hidden">
 
-      list.innerHTML = tasks.map(function (t, idx) {
-        return (
-          '<li class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-slate-50">' +
-            '<label class="flex items-center gap-2.5 cursor-pointer text-sm ' + (t.done ? "line-through text-slate-400" : "text-slate-800") + '">' +
-              '<input type="checkbox" ' + (t.done ? "checked" : "") + ' onchange="toggleTask(' + idx + ')" class="rounded text-indigo-600" />' +
-              "<span>" + escapeAttr(t.text) + "</span>" +
-            "</label>" +
-            '<button onclick="deleteTask(' + idx + ')" class="text-xs text-rose-500 hover:text-rose-700 font-bold cursor-pointer">Hapus</button>' +
-          "</li>"
-        );
-      }).join("");
-    }
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="glass-nav fixed inset-y-0 left-0 md:static w-64 flex-shrink-0 flex flex-col justify-between hidden md:flex z-30 transition-all duration-300">
+            <div>
+                <!-- Brand Header -->
+                <div class="p-5 border-b border-slate-800/80 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-bold text-white text-base tracking-tight leading-none">Flaaz Workspace</h2>
+                            <span class="text-[11px] text-indigo-400 font-medium">LMS & Productivity</span>
+                        </div>
+                    </div>
+                    <button onclick="closeMobileSidebar()" class="md:hidden text-slate-400 hover:text-white p-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
 
-    function addTask() {
-      var input = document.getElementById("new-task-input");
-      if (!input.value.trim()) return;
-      tasks.push({ text: input.value.trim(), done: false });
-      input.value = "";
-      safeSet("flaaz_tasks", JSON.stringify(tasks));
-      renderTasks();
-    }
+                <!-- Navigation Links -->
+                <nav class="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-140px)]">
+                    <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-indigo-400 bg-indigo-600/10 border border-indigo-500/20">
+                        <i class="fa-solid fa-chart-pie w-5"></i>
+                        <span>Overview</span>
+                    </button>
+                    <button onclick="switchTab('jadwal')" id="nav-jadwal" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+                        <i class="fa-solid fa-calendar-days w-5"></i>
+                        <span>Jadwal & Kalender</span>
+                    </button>
+                    <button onclick="switchTab('tugas')" id="nav-tugas" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+                        <i class="fa-solid fa-list-check w-5"></i>
+                        <span>Manajemen Tugas</span>
+                    </button>
+                    <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+                        <i class="fa-solid fa-book-open w-5"></i>
+                        <span>Review Materi Kuliah</span>
+                    </button>
+                    <button onclick="switchTab('focus')" id="nav-focus" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+                        <i class="fa-solid fa-bullseye w-5"></i>
+                        <span>Focus Zone & Wheel</span>
+                    </button>
+                    <button onclick="switchTab('jurnal')" id="nav-jurnal" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+                        <i class="fa-solid fa-heart-pulse w-5"></i>
+                        <span>Keluh Kesah & Jurnal</span>
+                    </button>
+                    <button onclick="switchTab('keuangan')" id="nav-keuangan" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+                        <i class="fa-solid fa-wallet w-5"></i>
+                        <span>Catatan Keuangan</span>
+                    </button>
+                    <button onclick="switchTab('pengaturan')" id="nav-pengaturan" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-400 hover:text-slate-100 hover:bg-slate-800/50">
+                        <i class="fa-solid fa-sliders w-5"></i>
+                        <span>Pengaturan</span>
+                    </button>
+                </nav>
+            </div>
 
-    function toggleTask(idx) {
-      tasks[idx].done = !tasks[idx].done;
-      safeSet("flaaz_tasks", JSON.stringify(tasks));
-      renderTasks();
-    }
+            <!-- User Footer Profile -->
+            <div class="p-4 border-t border-slate-800/80 flex items-center justify-between">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="w-9 h-9 rounded-full bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300 font-bold shrink-0">
+                        <span id="userAvatarChar">F</span>
+                    </div>
+                    <div class="truncate">
+                        <p id="navUserName" class="text-xs font-bold text-slate-200 truncate">Flaaz</p>
+                        <p class="text-[10px] text-emerald-400">● Aktif - Online</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition cursor-pointer" title="Keluar / Ganti Nama">
+                    <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                </button>
+            </div>
+        </aside>
 
-    function deleteTask(idx) {
-      tasks.splice(idx, 1);
-      safeSet("flaaz_tasks", JSON.stringify(tasks));
-      renderTasks();
-    }
+        <!-- Content Area -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden relative bg-slate-950">
+            <!-- Top App Bar -->
+            <header class="h-16 border-b border-slate-800/80 px-6 flex items-center justify-between bg-slate-900/50 backdrop-blur-md z-20 shrink-0">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleMobileSidebar()" class="md:hidden p-2 text-slate-300 hover:bg-slate-800 rounded-lg">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 id="pageTitle" class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-indigo-400"></i>
+                        <span>Overview Workspace</span>
+                    </h1>
+                </div>
 
-    renderPlayerAndGrid();
-    renderTasks();
-  </script>
-</body>
-</html>
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:flex items-center gap-2 text-xs text-slate-400 bg-slate-900 px-3 py-1.5 rounded-full border border-slate-800">
+                        <i class="fa-solid fa-clock text-indigo-400"></i>
+                        <span id="liveClock">00:00:00 WIB</span>
+                    </div>
+                    <div class="text-right">
+                        <span id="currentDateStr" class="text-xs text-slate-400 font-medium">-- --- ----</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Tab Views Container -->
+            <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+
+                <!-- 1. OVERVIEW TAB -->
+                <section id="tab-overview" class="tab-content active space-y-6">
+                    <!-- Welcome Hero Card -->
+                    <div class="glass-card p-6 rounded-3xl border border-indigo-500/20 relative overflow-hidden bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-900">
+                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                                    ✨ Personal Workspace Ready
+                                </span>
+                                <h2 class="text-2xl md:text-3xl font-black text-white mt-3 leading-snug">
+                                    Hai, <span id="welcomeUserName" class="text-indigo-400">Flaaz</span>! Siap untuk membuat hal-hal baru lagi? 🚀
+                                </h2>
+                                <p class="text-slate-400 text-sm mt-1.5 max-w-2xl">
+                                    Semua catatan kuliah, 5 modul kuis interaktif (H5P, Educaplay & Wordwall), jadwal, fokus belajar, hingga catatan keuanganmu siap menemani hari ini.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+                                <button onclick="switchTab('materi')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-indigo-600/30 cursor-pointer">
+                                    <i class="fa-solid fa-book-open"></i> Review 5 Materi
+                                </button>
+                                <button onclick="switchTab('focus')" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+                                    <i class="fa-solid fa-play text-indigo-400"></i>
