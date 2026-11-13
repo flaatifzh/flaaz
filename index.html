@@ -245,4 +245,1595 @@
                                     <i class="fa-solid fa-book-open"></i> Review 5 Materi
                                 </button>
                                 <button onclick="switchTab('focus')" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
-                                    <i class="fa-solid fa-play text-indigo-400"></i>
+                                    <i class="fa-solid fa-play text-indigo-400"></i> Sesi Focus
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-4 rounded-2xl border-l-4 border-amber-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs text-slate-400 font-medium">Tugas Belum Selesai</p>
+                                    <h3 id="statTasksPending" class="text-2xl font-bold text-white mt-1">0</h3>
+                                </div>
+                                <div class="p-2.5 bg-amber-500/10 text-amber-400 rounded-xl">
+                                    <i class="fa-solid fa-list-check"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4 rounded-2xl border-l-4 border-indigo-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs text-slate-400 font-medium">Sesi Pomodoro Hari Ini</p>
+                                    <h3 id="statPomodoro" class="text-2xl font-bold text-white mt-1">0</h3>
+                                </div>
+                                <div class="p-2.5 bg-indigo-500/10 text-indigo-400 rounded-xl">
+                                    <i class="fa-solid fa-stopwatch"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4 rounded-2xl border-l-4 border-emerald-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs text-slate-400 font-medium">Saldo Keuangan</p>
+                                    <h3 id="statBalance" class="text-xl font-bold text-emerald-400 mt-1">Rp 0</h3>
+                                </div>
+                                <div class="p-2.5 bg-emerald-500/10 text-emerald-400 rounded-xl">
+                                    <i class="fa-solid fa-wallet"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4 rounded-2xl border-l-4 border-purple-500">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs text-slate-400 font-medium">Modul Interaktif & Kartu</p>
+                                    <h3 id="statFlashcards" class="text-2xl font-bold text-white mt-1">5 Modul</h3>
+                                </div>
+                                <div class="p-2.5 bg-purple-500/10 text-purple-400 rounded-xl">
+                                    <i class="fa-solid fa-clone"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Widgets Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Upcoming Agenda Widget -->
+                        <div class="glass-card p-5 rounded-2xl lg:col-span-2">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-white flex items-center gap-2 text-sm">
+                                    <i class="fa-solid fa-calendar-check text-indigo-400"></i>
+                                    <span>Agenda Terdekat</span>
+                                </h3>
+                                <button onclick="switchTab('jadwal')" class="text-xs text-indigo-400 hover:underline">Lihat Semua</button>
+                            </div>
+                            <div id="overviewAgendaList" class="space-y-3"></div>
+                        </div>
+
+                        <!-- Quick Tasks Snapshot -->
+                        <div class="glass-card p-5 rounded-2xl">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-bold text-white flex items-center gap-2 text-sm">
+                                    <i class="fa-solid fa-tasks text-indigo-400"></i>
+                                    <span>Tugas Utama</span>
+                                </h3>
+                                <button onclick="switchTab('tugas')" class="text-xs text-indigo-400 hover:underline">Manajemen</button>
+                            </div>
+                            <div id="overviewTaskList" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. JADWAL & KALENDER TAB -->
+                <section id="tab-jadwal" class="tab-content space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Jadwal Kuliah & Agenda</h2>
+                            <p class="text-xs text-slate-400">Kelola jadwal perkuliahan dan agenda kegiatan penting harianmu</p>
+                        </div>
+                        <button onclick="openModal('addAgendaModal')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-indigo-600/30">
+                            <i class="fa-solid fa-plus"></i> Tambah Agenda
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Calendar Month Grid Card -->
+                        <div class="glass-card p-5 rounded-2xl lg:col-span-2">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 id="calendarMonthTitle" class="font-bold text-white text-base">Bulan Tahun</h3>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="changeMonth(-1)" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <button onclick="changeMonth(1)" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Calendar Grid Header -->
+                            <div class="grid grid-cols-7 text-center text-xs font-bold text-slate-400 border-b border-slate-800 pb-2 mb-2">
+                                <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+                            </div>
+                            <!-- Days Grid -->
+                            <div id="calendarGrid" class="grid grid-cols-7 gap-1 text-center text-xs"></div>
+                        </div>
+
+                        <!-- Agenda List Panel -->
+                        <div class="glass-card p-5 rounded-2xl flex flex-col">
+                            <h3 class="font-bold text-white text-sm mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-clock text-indigo-400"></i>
+                                <span>Daftar Agenda Hari Ini & Mendatang</span>
+                            </h3>
+                            <div id="calendarEventsList" class="flex-1 space-y-3 overflow-y-auto max-h-[380px] pr-1"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. MANAJEMEN TUGAS TAB -->
+                <section id="tab-tugas" class="tab-content space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Manajemen Tugas & Proyek</h2>
+                            <p class="text-xs text-slate-400">Pantau progres pengerjaan tugas dengan 4 status terorganisir</p>
+                        </div>
+                        <button onclick="openModal('addTaskModal')" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-indigo-600/30">
+                            <i class="fa-solid fa-plus"></i> Buat Tugas Baru
+                        </button>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2">
+                        <button onclick="filterTasks('all', this)" class="task-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white">Semua</button>
+                        <button onclick="filterTasks('Belum Dimulai', this)" class="task-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-400 hover:text-white">Belum Dimulai (0%)</button>
+                        <button onclick="filterTasks('Dalam Proses', this)" class="task-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-400 hover:text-white">Dalam Proses (50%)</button>
+                        <button onclick="filterTasks('Terkendala', this)" class="task-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-400 hover:text-white">Terkendala (0%)</button>
+                        <button onclick="filterTasks('Selesai', this)" class="task-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-400 hover:text-white">Selesai (100%)</button>
+                    </div>
+
+                    <!-- Tasks Container -->
+                    <div id="tasksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                </section>
+
+                <!-- 4. REVIEW MATERI KULIAH TAB (5 EMBEDS + 3D FLASHCARDS) -->
+                <section id="tab-materi" class="tab-content space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Review Materi & Learning Hub</h2>
+                            <p class="text-xs text-slate-400">5 modul evaluasi interaktif (Lumi H5P, Educaplay, & Wordwall) serta 3D Flashcards</p>
+                        </div>
+                        <span class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 self-start sm:self-auto">
+                            <i class="fa-solid fa-circle-check text-emerald-400"></i> 5 Konten Interaktif Terhubung
+                        </span>
+                    </div>
+
+                    <!-- Interactive 5-Module Player (Lumi H5P, Educaplay, Wordwall) -->
+                    <div class="glass-card p-5 sm:p-6 rounded-3xl border border-indigo-500/20 space-y-5">
+                        <!-- Header & Custom Embed Loader -->
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span id="activeEmbedBadge" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-indigo-600 text-white">
+                                        Modul 1 / 5
+                                    </span>
+                                    <span id="activeEmbedPlatform" class="text-[11px] font-semibold text-emerald-400">
+                                        Lumi H5P • Drag the Words
+                                    </span>
+                                </div>
+                                <h3 id="activeEmbedTitle" class="font-bold text-white text-base sm:text-lg mt-1.5 flex items-center gap-2">
+                                    1. R&D Produk Tekpen (Model ADDIE)
+                                </h3>
+                                <p id="activeEmbedDesc" class="text-xs text-slate-400 mt-0.5">
+                                    Review tahapan Analysis, Design, Development, Implementation, Evaluation & uji validasi ahli.
+                                </p>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-2">
+                                <input type="text" id="quizEmbedInput" placeholder="Atau paste URL embed lain..." class="px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-indigo-500 w-52 sm:w-60">
+                                <button onclick="updateQuizEmbed()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+                                    Muat
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Main Embed Iframe Container -->
+                        <div class="w-full h-[460px] sm:h-[560px] lg:h-[620px] bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-inner relative">
+                            <iframe
+                                id="quizFrame"
+                                src="https://app.lumi.education/api/v1/run/r7c-q0/embed"
+                                class="w-full h-full border-0"
+                                allowfullscreen="allowfullscreen"
+                                allow="fullscreen; autoplay; allow-top-navigation-by-user-activation; geolocation *; microphone *; camera *; midi *; encrypted-media *">
+                            </iframe>
+                        </div>
+
+                        <!-- Prev / Next Navigation Bar -->
+                        <div class="flex items-center justify-between gap-3 pt-1">
+                            <button onclick="prevEmbedModule()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-arrow-left"></i> Modul Sebelumnya
+                            </button>
+                            <span class="text-[11px] text-slate-400 hidden sm:inline">Pilih kartu di bawah untuk berpindah cepat antar 5 kuis/game</span>
+                            <button onclick="nextEmbedModule()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+                                Modul Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- 5 Playlist Cards Grid -->
+                        <div id="embedPlaylistGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2 border-t border-slate-800/80"></div>
+                    </div>
+
+                    <!-- Flashcard Deck Component -->
+                    <div class="glass-card p-6 rounded-3xl border border-purple-500/20 bg-gradient-to-b from-slate-900 to-slate-950">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-white text-base flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-purple-400"></i>
+                                <span>3D Interactive Flashcards</span>
+                            </h3>
+                            <button onclick="openModal('addFlashcardModal')" class="px-3 py-1.5 bg-purple-600/30 border border-purple-500/40 text-purple-300 rounded-lg text-xs font-semibold hover:bg-purple-600 hover:text-white transition cursor-pointer">
+                                + Tambah Kartu
+                            </button>
+                        </div>
+
+                        <!-- 3D Card Flip Wrapper -->
+                        <div class="flex flex-col items-center justify-center py-4">
+                            <div onclick="flipFlashcard()" class="perspective-1000 w-full max-w-md h-56 cursor-pointer group">
+                                <div id="flashcardInner" class="relative w-full h-full duration-500 transform-style-3d shadow-xl rounded-2xl">
+                                    <!-- Front Face -->
+                                    <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 border border-purple-500/30 rounded-2xl p-6 flex flex-col justify-between backface-hidden">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400">Pertanyaan / Istilah</span>
+                                        <p id="cardFrontText" class="text-center font-bold text-lg text-white my-auto">Klik untuk membalik kartu...</p>
+                                        <span class="text-[10px] text-slate-500 text-center"><i class="fa-solid fa-rotate"></i> Klik untuk lihat jawaban</span>
+                                    </div>
+                                    <!-- Back Face -->
+                                    <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-purple-950 to-indigo-950 border border-purple-400/50 rounded-2xl p-6 flex flex-col justify-between backface-hidden rotate-y-180">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Jawaban / Penjelasan</span>
+                                        <p id="cardBackText" class="text-center text-sm text-slate-200 my-auto">Penjelasan jawaban akan muncul di sini.</p>
+                                        <span class="text-[10px] text-purple-300/60 text-center"><i class="fa-solid fa-check"></i> Mengerti</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flashcard Navigation Controls -->
+                            <div class="flex items-center gap-4 mt-6">
+                                <button onclick="prevFlashcard()" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold cursor-pointer">
+                                    <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+                                </button>
+                                <span id="flashcardCounter" class="text-xs font-semibold text-slate-400">1 / 1</span>
+                                <button onclick="nextFlashcard()" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold cursor-pointer">
+                                    Berikutnya <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. FOCUS ZONE & CANVAS SPIN WHEEL TAB -->
+                <section id="tab-focus" class="tab-content space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Focus Zone & Roda Penentu Keputusan</h2>
+                        <p class="text-xs text-slate-400">Pemutar Spotify pribadi, Pomodoro timer, dan Spinning Wheel interaktif</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        
+                        <!-- Left Column: Spotify & Pomodoro -->
+                        <div class="space-y-6">
+                            <!-- Pomodoro Timer -->
+                            <div class="glass-card p-6 rounded-3xl text-center border border-indigo-500/20 bg-slate-900/80">
+                                <h3 class="text-sm font-bold text-indigo-300 uppercase tracking-wider mb-2">Pomodoro Timer</h3>
+                                <div id="pomoDisplay" class="text-5xl font-black text-white my-3 tracking-tight">25:00</div>
+                                <div class="flex justify-center gap-2 my-4">
+                                    <button onclick="setPomoMode('focus')" class="px-3 py-1 bg-indigo-600 text-white text-xs rounded-lg font-semibold cursor-pointer">Focus (25m)</button>
+                                    <button onclick="setPomoMode('break')" class="px-3 py-1 bg-slate-800 text-slate-400 hover:text-white text-xs rounded-lg font-semibold cursor-pointer">Break (5m)</button>
+                                </div>
+                                <div class="flex justify-center gap-3">
+                                    <button id="pomoStartBtn" onclick="togglePomodoro()" class="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 cursor-pointer">
+                                        <i class="fa-solid fa-play mr-1"></i> Mulai
+                                    </button>
+                                    <button onclick="resetPomodoro()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl cursor-pointer">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Embedded Spotify Player -->
+                            <div class="glass-card p-5 rounded-3xl border border-emerald-500/20 bg-slate-900/90">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                                        <i class="fa-brands fa-spotify text-lg"></i>
+                                        <span>Spotify Playlist Kamu</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">Embed Direct</span>
+                                </div>
+                                <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-800">
+                                    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3ODOev2e1UlcYJ4FfiFTwh?utm_source=generator&si=a6969407a1ab463a" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Interactive Canvas Spin Wheel -->
+                        <div class="glass-card p-6 rounded-3xl border border-amber-500/20 bg-slate-900/80 flex flex-col items-center">
+                            <div class="w-full text-left mb-4">
+                                <h3 class="font-bold text-white text-base flex items-center gap-2">
+                                    <i class="fa-solid fa-arrows-spin text-amber-400"></i>
+                                    <span>Roda Penentu Keputusan</span>
+                                </h3>
+                                <p class="text-xs text-slate-400">Bingung mau makan apa atau belajar apa? Putar rodanya!</p>
+                            </div>
+
+                            <div class="relative my-2 flex items-center justify-center">
+                                <div class="absolute -top-3 z-10 w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-t-[24px] border-t-amber-400 drop-shadow-md"></div>
+                                <canvas id="wheelCanvas" width="320" height="320" class="rounded-full shadow-2xl border-4 border-slate-800 bg-slate-950"></canvas>
+                            </div>
+
+                            <button id="spinBtn" onclick="spinWheel()" class="mt-4 w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-sm rounded-xl shadow-lg shadow-amber-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-dice text-base"></i> Putar Roda 
+                            </button>
+
+                            <div class="w-full mt-6 space-y-3 border-t border-slate-800 pt-4">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs font-bold text-slate-300">Daftar Pilihan (1 Opsi Per Baris):</label>
+                                    <div class="flex gap-1">
+                                        <button onclick="setWheelPreset('makanan')" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-amber-300 px-2 py-1 rounded cursor-pointer">🍔 Makan</button>
+                                        <button onclick="setWheelPreset('belajar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-indigo-300 px-2 py-1 rounded cursor-pointer">📚 Belajar</button>
+                                    </div>
+                                </div>
+                                <textarea id="wheelOptionsText" oninput="updateWheelOptionsFromText()" rows="4" class="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-amber-500 leading-relaxed" placeholder="Masukkan pilihan di sini..."></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- 6. KELUH KESAH / JURNAL TAB -->
+                <section id="tab-jurnal" class="tab-content space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Keluh Kesah & Jurnal Harian</h2>
+                        <p class="text-xs text-slate-400">Ruang aman untuk mengekspresikan perasaan, cerita, dan momenmu</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-3xl border border-indigo-500/20 space-y-4">
+                        <h3 class="text-sm font-bold text-white">Bagaimana Perasaanmu Hari Ini?</h3>
+                        
+                        <div class="flex items-center gap-3 overflow-x-auto pb-1">
+                            <button type="button" onclick="selectMood('😊', this)" class="mood-btn px-3.5 py-2 bg-indigo-600/30 border border-indigo-500 rounded-xl text-lg flex items-center gap-2 transition cursor-pointer">
+                                <span>😊</span> <span class="text-xs text-slate-200">Senang</span>
+                            </button>
+                            <button type="button" onclick="selectMood('😐', this)" class="mood-btn px-3.5 py-2 bg-slate-800 hover:bg-indigo-600/30 rounded-xl text-lg flex items-center gap-2 border border-transparent hover:border-indigo-500 transition cursor-pointer">
+                                <span>😐</span> <span class="text-xs text-slate-300">Biasa</span>
+                            </button>
+                            <button type="button" onclick="selectMood('😔', this)" class="mood-btn px-3.5 py-2 bg-slate-800 hover:bg-indigo-600/30 rounded-xl text-lg flex items-center gap-2 border border-transparent hover:border-indigo-500 transition cursor-pointer">
+                                <span>😔</span> <span class="text-xs text-slate-300">Sedih</span>
+                            </button>
+                            <button type="button" onclick="selectMood('😤', this)" class="mood-btn px-3.5 py-2 bg-slate-800 hover:bg-indigo-600/30 rounded-xl text-lg flex items-center gap-2 border border-transparent hover:border-indigo-500 transition cursor-pointer">
+                                <span>😤</span> <span class="text-xs text-slate-300">Kesal</span>
+                            </button>
+                            <button type="button" onclick="selectMood('😴', this)" class="mood-btn px-3.5 py-2 bg-slate-800 hover:bg-indigo-600/30 rounded-xl text-lg flex items-center gap-2 border border-transparent hover:border-indigo-500 transition cursor-pointer">
+                                <span>😴</span> <span class="text-xs text-slate-300">Lelah</span>
+                            </button>
+                        </div>
+
+                        <textarea id="journalContent" rows="3" placeholder="Tuliskan keluh kesah atau cerita hari ini..." class="w-full p-3.5 bg-slate-900 border border-slate-700/60 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"></textarea>
+
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <label class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold cursor-pointer border border-slate-700">
+                                    <i class="fa-solid fa-image text-indigo-400 mr-1"></i> Lampirkan Foto
+                                    <input type="file" id="journalImageInput" accept="image/*" onchange="previewJournalImage(event)" class="hidden">
+                                </label>
+                                <span id="journalImgFileName" class="text-[11px] text-slate-400 truncate max-w-[150px]"></span>
+                            </div>
+                            <button onclick="saveJournalEntry()" class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-600/30 cursor-pointer">
+                                <i class="fa-solid fa-paper-plane mr-1"></i> Simpan Catatan
+                            </button>
+                        </div>
+
+                        <div id="journalImgPreviewBox" class="hidden relative inline-block">
+                            <img id="journalImgPreview" class="h-28 rounded-xl border border-slate-700 object-cover">
+                            <button type="button" onclick="removeJournalImage()" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center cursor-pointer">×</button>
+                        </div>
+                    </div>
+
+                    <div id="journalFeed" class="space-y-4"></div>
+                </section>
+
+                <!-- 7. CATATAN KEUANGAN TAB -->
+                <section id="tab-keuangan" class="tab-content space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Catatan Keuangan</h2>
+                            <p class="text-xs text-slate-400">Pencatatan pemasukan dan pengeluaran harian dalam Rupiah (Rp)</p>
+                        </div>
+                        <button onclick="openModal('addFinanceModal')" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-emerald-600/30 cursor-pointer">
+                            <i class="fa-solid fa-plus"></i> Catat Transaksi
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="glass-card p-5 rounded-2xl border-l-4 border-emerald-500 bg-slate-900/60">
+                            <p class="text-xs text-slate-400">Total Pemasukan</p>
+                            <h3 id="finTotalIncome" class="text-xl font-bold text-emerald-400 mt-1">Rp 0</h3>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl border-l-4 border-rose-500 bg-slate-900/60">
+                            <p class="text-xs text-slate-400">Total Pengeluaran</p>
+                            <h3 id="finTotalExpense" class="text-xl font-bold text-rose-400 mt-1">Rp 0</h3>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl border-l-4 border-indigo-500 bg-slate-900/60">
+                            <p class="text-xs text-slate-400">Sisa Saldo Bersih</p>
+                            <h3 id="finNetBalance" class="text-2xl font-black text-white mt-1">Rp 0</h3>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="text-slate-400 border-b border-slate-800 uppercase">
+                                <tr>
+                                    <th class="py-3 px-3">Tanggal</th>
+                                    <th class="py-3 px-3">Kategori</th>
+                                    <th class="py-3 px-3">Keterangan</th>
+                                    <th class="py-3 px-3">Jenis</th>
+                                    <th class="py-3 px-3 text-right">Jumlah</th>
+                                    <th class="py-3 px-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="financeTableBody" class="divide-y divide-slate-800/60 text-slate-200"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 8. PENGATURAN TAB -->
+                <section id="tab-pengaturan" class="tab-content space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Pengaturan Workspace</h2>
+                        <p class="text-xs text-slate-400">Atur profil pengguna dan pengelolaan data penyimpanan lokal</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-3xl border border-slate-800 max-w-2xl space-y-6">
+                        <div>
+                            <h3 class="text-sm font-bold text-white mb-3">Profil Pengguna</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1">Nama Panggilan Dashboard</label>
+                                    <input type="text" id="settingsNameInput" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-indigo-500">
+                                </div>
+                                <button onclick="saveSettingsName()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition cursor-pointer">
+                                    Simpan Perubahan
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr class="border-slate-800">
+
+                        <div>
+                            <h3 class="text-sm font-bold text-rose-400 mb-1">Zona Bahaya</h3>
+                            <p class="text-xs text-slate-400 mb-3">Reset ulang seluruh data tugas, jadwal, jurnal, dan keuangan ke kondisi awal.</p>
+                            <button onclick="openModal('resetDataModal')" class="px-4 py-2 bg-rose-600/20 border border-rose-500/40 text-rose-300 hover:bg-rose-600 hover:text-white rounded-xl text-xs font-bold transition cursor-pointer">
+                                Reset Ulang Seluruh Data Workspace
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS CONTAINER -->
+
+    <!-- Add Agenda Modal -->
+    <div id="addAgendaModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden p-4">
+        <div class="glass-card p-6 rounded-3xl w-full max-w-md border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-white text-base">Tambah Agenda / Jadwal</h3>
+                <button onclick="closeModal('addAgendaModal')" class="text-slate-400 hover:text-white">✕</button>
+            </div>
+            <form onsubmit="saveAgenda(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">Judul Agenda / Mata Kuliah</label>
+                    <input type="text" id="agendaTitle" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Tanggal</label>
+                        <input type="date" id="agendaDate" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Waktu</label>
+                        <input type="time" id="agendaTime" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Kategori</label>
+                    <select id="agendaCategory" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                        <option value="Kuliah">Kuliah</option>
+                        <option value="Tugas">Tugas</option>
+                        <option value="Personal">Personal</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-indigo-600 text-white font-bold rounded-xl mt-2">Simpan Agenda</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div id="addTaskModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden p-4">
+        <div class="glass-card p-6 rounded-3xl w-full max-w-md border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-white text-base">Tambah Tugas Baru</h3>
+                <button onclick="closeModal('addTaskModal')" class="text-slate-400 hover:text-white">✕</button>
+            </div>
+            <form onsubmit="saveTask(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">Judul Tugas</label>
+                    <input type="text" id="taskTitle" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Mata Kuliah / Kategori</label>
+                    <input type="text" id="taskSubject" placeholder="Misal: Animasi Pembelajaran" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Tenggat Waktu</label>
+                        <input type="date" id="taskDueDate" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Status Awal</label>
+                        <select id="taskStatus" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                            <option value="Belum Dimulai">Belum Dimulai (0%)</option>
+                            <option value="Dalam Proses">Dalam Proses (50%)</option>
+                            <option value="Terkendala">Terkendala (0%)</option>
+                            <option value="Selesai">Selesai (100%)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-indigo-600 text-white font-bold rounded-xl mt-2">Tambah Tugas</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Flashcard Modal -->
+    <div id="addFlashcardModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden p-4">
+        <div class="glass-card p-6 rounded-3xl w-full max-w-md border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-white text-base">Tambah Flashcard Hafalan</h3>
+                <button onclick="closeModal('addFlashcardModal')" class="text-slate-400 hover:text-white">✕</button>
+            </div>
+            <form onsubmit="saveFlashcard(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">Pertanyaan / Istilah (Sisi Depan)</label>
+                    <textarea id="cardFrontInput" required rows="2" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white"></textarea>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Jawaban / Penjelasan (Sisi Belakang)</label>
+                    <textarea id="cardBackInput" required rows="3" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white"></textarea>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-purple-600 text-white font-bold rounded-xl mt-2">Simpan Flashcard</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Finance Modal -->
+    <div id="addFinanceModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden p-4">
+        <div class="glass-card p-6 rounded-3xl w-full max-w-md border border-slate-700 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-white text-base">Catat Pemasukan / Pengeluaran</h3>
+                <button onclick="closeModal('addFinanceModal')" class="text-slate-400 hover:text-white">✕</button>
+            </div>
+            <form onsubmit="saveFinance(event)" class="space-y-3 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Jenis Transaksi</label>
+                        <select id="finType" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                            <option value="Pengeluaran">Pengeluaran (-)</option>
+                            <option value="Pemasukan">Pemasukan (+)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Jumlah (Rp)</label>
+                        <input type="number" id="finAmount" required placeholder="15000" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Kategori</label>
+                    <input type="text" id="finCategory" placeholder="Makanan, Uang Saku, Buku, dll" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Keterangan / Catatan</label>
+                    <input type="text" id="finNotes" placeholder="Makan siang bakso" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white">
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-emerald-600 text-white font-bold rounded-xl mt-2">Catat Transaksi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Spin Wheel Winner Modal -->
+    <div id="wheelWinnerModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center hidden p-4">
+        <div class="glass-card p-6 rounded-3xl w-full max-w-sm border border-amber-500/40 text-center space-y-4">
+            <div class="text-4xl">🎉</div>
+            <h3 class="text-xs uppercase font-extrabold text-amber-400 tracking-wider">Hasil Roda Penentu Keputusan</h3>
+            <div id="wheelWinnerResult" class="text-2xl font-black text-white p-4 bg-slate-950/80 rounded-2xl border border-amber-500/20">
+                Pilihan
+            </div>
+            <button onclick="closeModal('wheelWinnerModal')" class="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs cursor-pointer">
+                Siap Laksanakan!
+            </button>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal for Reset -->
+    <div id="resetDataModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden p-4">
+        <div class="glass-card p-6 rounded-3xl w-full max-w-sm border border-rose-500/40 text-center space-y-4">
+            <div class="text-3xl text-rose-500"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3 class="text-base font-bold text-white">Konfirmasi Reset Data</h3>
+            <p class="text-xs text-slate-400">Apakah kamu yakin ingin menghapus seluruh data pada workspace ini?</p>
+            <div class="flex gap-2">
+                <button onclick="closeModal('resetDataModal')" class="w-1/2 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl text-xs">Batal</button>
+                <button onclick="confirmResetData()" class="w-1/2 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-xs">Ya, Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lumi H5P Auto-Resizer Script -->
+    <script src="https://app.lumi.education/api/v1/h5p/core/js/h5p-resizer.js" charset="UTF-8"></script>
+
+    <script>
+        // Safe Storage Wrapper (anti-error di Incognito / browser terbatas)
+        const memoryFallback = {};
+        function safeGetStorage(key) {
+            try {
+                return window.localStorage.getItem(key) || memoryFallback[key] || null;
+            } catch (e) {
+                return memoryFallback[key] || null;
+            }
+        }
+        function safeSetStorage(key, value) {
+            memoryFallback[key] = value;
+            try {
+                window.localStorage.setItem(key, value);
+            } catch (e) {}
+        }
+        function safeRemoveStorage(key) {
+            delete memoryFallback[key];
+            try {
+                window.localStorage.removeItem(key);
+            } catch (e) {}
+        }
+
+        // 5 Interactive Embed Modules (Lumi H5P, Educaplay, Wordwall)
+        const INTERACTIVE_MODULES = [
+            {
+                title: '1. R&D Produk Tekpen (Model ADDIE)',
+                platform: 'Lumi H5P • Drag the Words',
+                desc: 'Review tahapan Analysis, Design, Development, Implementation, Evaluation & uji validasi ahli.',
+                url: 'https://app.lumi.education/api/v1/run/r7c-q0/embed'
+            },
+            {
+                title: '2. Animasi Pembelajaran (Prinsip Animasi)',
+                platform: 'Educaplay • Memory Game',
+                desc: 'Permainan mencocokkan kartu gambar gerakan dan istilah prinsip dasar animasi.',
+                url: 'https://www.educaplay.com/game/31501128-prinsip_animasi_kartu_gambar_dan_istilah.html'
+            },
+            {
+                title: '3. Multimedia Interaktif (Kuis Konsep)',
+                platform: 'Wordwall • Gameshow Quiz',
+                desc: 'Kuis interaktif menguji pemahaman prinsip perancangan media pembelajaran.',
+                url: 'https://wordwall.net/embed/0a3d364e3d0743fc88937ee23ecea713?themeId=21&templateId=69&fontStackId=0'
+            },
+            {
+                title: '4. Teknologi Kinerja & Metodologi',
+                platform: 'Wordwall • Match Up',
+                desc: 'Latihan mencocokkan istilah dan konsep kunci evaluasi kinerja serta penelitian.',
+                url: 'https://wordwall.net/embed/fd3633ce5f734f31a8ce52b62b319759?themeId=1&templateId=2&fontStackId=0'
+            },
+            {
+                title: '5. Pengembangan Pembelajaran Online',
+                platform: 'Educaplay • Community of Inquiry',
+                desc: 'Eksplorasi ekosistem pembelajaran daring dan kerangka Community of Inquiry (CoI).',
+                url: 'https://www.educaplay.com/game/31501104-pembelajaran_daring_dan_community_of_inquiry.html'
+            }
+        ];
+
+        let currentEmbedIdx = 0;
+
+        // Default Mock State
+        const DEFAULT_STATE = {
+            user: { name: 'Flaaz', loggedIn: false },
+            statPomodoro: 0,
+            tasks: [
+                { id: 1, title: 'Tugas UI/UX Wireframing', subject: 'Desain Antarmuka', dueDate: '2026-11-20', status: 'Dalam Proses' },
+                { id: 2, title: 'Review 5 Modul Interaktif LMS', subject: 'Teknologi Pendidikan', dueDate: '2026-11-22', status: 'Belum Dimulai' },
+                { id: 3, title: 'Makalah Etika Profesi', subject: 'Etika', dueDate: '2026-11-15', status: 'Selesai' }
+            ],
+            schedules: [
+                { id: 1, title: 'Pemrograman Web (Ruang A3)', date: '2026-11-14', time: '08:00', category: 'Kuliah' },
+                { id: 2, title: 'Diskusi Kelompok LMS', date: '2026-11-16', time: '13:00', category: 'Tugas' }
+            ],
+            flashcards: [
+                { front: 'Apa fungsi utama requirements dalam proses HPT menurut Ray Svenson?', back: 'Sebagai "jembatan" yang menghubungkan tahap analisis dan desain, yaitu menetapkan kriteria keberhasilan teknis yang disepakati stakeholders agar solusi dapat divalidasi dan diuji.' },
+                { front: 'Apa perbedaan antara Single-Level Solution dan Multilevel Solution dalam penyusunan requirements?', back: 'Single-Level Solution adalah solusi sederhana satu elemen di mana requirements langsung diuji ke satu solusi utuh, sedangkan Multilevel Solution adalah solusi kompleks bertingkat di mana requirements utama harus diturunkan (cascade) secara selaras dari atas ke bawah.' }
+            ],
+            journals: [
+                { id: 1, mood: '😊', text: 'Hari ini berhasil menyelesaikan proyek dashboard Flaaz Personal Hub!', date: '13 Nov 2026, 08:30', image: '' }
+            ],
+            finances: [
+                { id: 1, type: 'Pemasukan', amount: 500000, category: 'Uang Saku', notes: 'Transfer Bulanan', date: '2026-11-01' },
+                { id: 2, type: 'Pengeluaran', amount: 35000, category: 'Makanan', notes: 'Makan Siang & Es Teh', date: '2026-11-13' }
+            ],
+            wheelOptions: ['Nasi Goreng', 'Ayam Geprek', 'Bakso Solo', 'Sushi Roll', 'Mie Ayam', 'Soto Ayam']
+        };
+
+        let appData = DEFAULT_STATE;
+        try {
+            const rawSaved = safeGetStorage('flaaz_workspace_data_v2');
+            if (rawSaved) {
+                appData = Object.assign({}, DEFAULT_STATE, JSON.parse(rawSaved));
+            }
+        } catch (e) {
+            appData = DEFAULT_STATE;
+        }
+
+        function saveToLocalStorage() {
+            safeSetStorage('flaaz_workspace_data_v2', JSON.stringify(appData));
+        }
+
+        // Live Clock
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('id-ID') + ' WIB';
+            const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+            const clockEl = document.getElementById('liveClock');
+            const dateEl = document.getElementById('currentDateStr');
+            if (clockEl) clockEl.textContent = timeStr;
+            if (dateEl) dateEl.textContent = dateStr;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Switch Active Tabs
+        function switchTab(tabKey) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const targetTab = document.getElementById(`tab-${tabKey}`);
+            if (targetTab) targetTab.classList.add('active');
+
+            // Update sidebar buttons active styling
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-indigo-400', 'bg-indigo-600/10', 'border', 'border-indigo-500/20');
+                btn.classList.add('text-slate-400');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabKey}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-400');
+                activeBtn.classList.add('text-indigo-400', 'bg-indigo-600/10', 'border', 'border-indigo-500/20');
+            }
+
+            // Update Topbar Title
+            const titleMap = {
+                overview: '<i class="fa-solid fa-chart-pie text-indigo-400"></i> <span>Overview Workspace</span>',
+                jadwal: '<i class="fa-solid fa-calendar-days text-indigo-400"></i> <span>Jadwal & Kalender Kuliah</span>',
+                tugas: '<i class="fa-solid fa-list-check text-indigo-400"></i> <span>Manajemen Tugas</span>',
+                materi: '<i class="fa-solid fa-book-open text-indigo-400"></i> <span>Review Materi Kuliah</span>',
+                focus: '<i class="fa-solid fa-bullseye text-indigo-400"></i> <span>Focus Zone & Roda Penentu</span>',
+                jurnal: '<i class="fa-solid fa-heart-pulse text-indigo-400"></i> <span>Keluh Kesah & Jurnal</span>',
+                keuangan: '<i class="fa-solid fa-wallet text-indigo-400"></i> <span>Catatan Keuangan (Rp)</span>',
+                pengaturan: '<i class="fa-solid fa-sliders text-indigo-400"></i> <span>Pengaturan Workspace</span>'
+            };
+            document.getElementById('pageTitle').innerHTML = titleMap[tabKey] || 'Workspace';
+
+            // Auto close mobile sidebar on navigation
+            closeMobileSidebar();
+
+            // Trigger wheel redraw if switching to focus tab
+            if (tabKey === 'focus') {
+                setTimeout(drawWheel, 100);
+            }
+        }
+
+        function handleLogin(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            if (!username) {
+                document.getElementById('loginUsername').focus();
+                return;
+            }
+            appData.user.name = username;
+            appData.user.loggedIn = true;
+            saveToLocalStorage();
+            updateUserUI();
+            document.getElementById('authScreen').classList.add('hidden');
+        }
+
+        function togglePasswordVisibility() {
+            const pwdInput = document.getElementById('loginPassword');
+            const icon = document.getElementById('passwordToggleIcon');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                pwdInput.type = 'password';
+                icon.className = 'fa-solid fa-eye';
+            }
+        }
+
+        function logout() {
+            appData.user.loggedIn = false;
+            saveToLocalStorage();
+            document.getElementById('loginUsername').value = appData.user.name || '';
+            document.getElementById('authScreen').classList.remove('hidden');
+        }
+
+        function updateUserUI() {
+            const name = appData.user.name || 'Flaaz';
+            document.getElementById('welcomeUserName').textContent = name;
+            document.getElementById('navUserName').textContent = name;
+            document.getElementById('userAvatarChar').textContent = name.charAt(0).toUpperCase();
+            document.getElementById('settingsNameInput').value = name;
+        }
+
+        function saveSettingsName() {
+            const newName = document.getElementById('settingsNameInput').value.trim();
+            if (newName) {
+                appData.user.name = newName;
+                saveToLocalStorage();
+                updateUserUI();
+            }
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('mobileBackdrop');
+            sidebar.classList.toggle('hidden');
+            backdrop.classList.toggle('hidden');
+        }
+
+        function closeMobileSidebar() {
+            if (window.innerWidth < 768) {
+                document.getElementById('sidebar').classList.add('hidden');
+                document.getElementById('mobileBackdrop').classList.add('hidden');
+            }
+        }
+
+        function renderOverview() {
+            const pending = appData.tasks.filter(t => t.status !== 'Selesai' && t.status !== 'Completed').length;
+            document.getElementById('statTasksPending').textContent = pending;
+            document.getElementById('statPomodoro').textContent = appData.statPomodoro || 0;
+            document.getElementById('statFlashcards').textContent = `${INTERACTIVE_MODULES.length} Modul • ${appData.flashcards.length} Kartu`;
+
+            // Finance Total calculation
+            let inc = appData.finances.filter(f => f.type === 'Pemasukan').reduce((a, b) => a + Number(b.amount), 0);
+            let exp = appData.finances.filter(f => f.type === 'Pengeluaran').reduce((a, b) => a + Number(b.amount), 0);
+            let bal = inc - exp;
+            document.getElementById('statBalance').textContent = `Rp ${bal.toLocaleString('id-ID')}`;
+
+            // Agenda List Snapshot
+            const agendaContainer = document.getElementById('overviewAgendaList');
+            if (appData.schedules.length === 0) {
+                agendaContainer.innerHTML = `<p class="text-xs text-slate-500">Belum ada agenda terdekat.</p>`;
+            } else {
+                agendaContainer.innerHTML = appData.schedules.slice(0, 3).map(s => `
+                    <div class="flex items-center justify-between p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-xs">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-white">${s.title}</p>
+                                <p class="text-[10px] text-slate-400">${s.date} • ${s.time}</p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">${s.category}</span>
+                    </div>
+                `).join('');
+            }
+
+            // Task List Snapshot
+            const taskContainer = document.getElementById('overviewTaskList');
+            if (appData.tasks.length === 0) {
+                taskContainer.innerHTML = `<p class="text-xs text-slate-500">Tidak ada tugas.</p>`;
+            } else {
+                taskContainer.innerHTML = appData.tasks.slice(0, 4).map(t => `
+                    <div class="flex items-center justify-between p-2.5 bg-slate-900/40 rounded-xl">
+                        <span class="text-xs text-slate-300 font-medium truncate max-w-[180px]">${t.title}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded-md font-bold ${getTaskStatusStyle(t.status)}">${t.status}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // =========================================================
+        // 5 INTERACTIVE EMBED MODULES RENDERER & CONTROLS
+        // =========================================================
+        function renderEmbedModules() {
+            const current = INTERACTIVE_MODULES[currentEmbedIdx];
+            document.getElementById('activeEmbedBadge').textContent = `Modul ${currentEmbedIdx + 1} / ${INTERACTIVE_MODULES.length}`;
+            document.getElementById('activeEmbedPlatform').textContent = current.platform;
+            document.getElementById('activeEmbedTitle').textContent = current.title;
+            document.getElementById('activeEmbedDesc').textContent = current.desc;
+            document.getElementById('quizFrame').src = current.url;
+
+            const grid = document.getElementById('embedPlaylistGrid');
+            grid.innerHTML = INTERACTIVE_MODULES.map((mod, idx) => {
+                const isActive = idx === currentEmbedIdx;
+                return `
+                    <div onclick="selectEmbedModule(${idx})" class="cursor-pointer p-3.5 rounded-2xl border transition-all flex flex-col justify-between ${
+                        isActive
+                        ? 'bg-indigo-600/20 border-indigo-500 shadow-lg shadow-indigo-600/10'
+                        : 'bg-slate-900/70 border-slate-800 hover:border-indigo-500/40 hover:bg-slate-900'
+                    }">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                                    isActive ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                                }">
+                                    ${isActive ? '▶ Aktif' : 'Modul #' + (idx + 1)}
+                                </span>
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            </div>
+                            <h4 class="text-xs font-bold text-white leading-snug">${mod.title}</h4>
+                            <p class="text-[11px] text-slate-400 mt-1 line-clamp-2">${mod.desc}</p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between">
+                            <span class="text-[10px] font-semibold text-indigo-400 truncate">${mod.platform}</span>
+                            <i class="fa-solid fa-arrow-right text-[10px] text-slate-500"></i>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectEmbedModule(idx) {
+            currentEmbedIdx = idx;
+            renderEmbedModules();
+        }
+
+        function prevEmbedModule() {
+            currentEmbedIdx = (currentEmbedIdx - 1 + INTERACTIVE_MODULES.length) % INTERACTIVE_MODULES.length;
+            renderEmbedModules();
+        }
+
+        function nextEmbedModule() {
+            currentEmbedIdx = (currentEmbedIdx + 1) % INTERACTIVE_MODULES.length;
+            renderEmbedModules();
+        }
+
+        function updateQuizEmbed() {
+            const raw = document.getElementById('quizEmbedInput').value.trim();
+            if (raw) {
+                const srcMatch = raw.match(/src=["']([^"']+)["']/i);
+                const cleanUrl = (srcMatch && srcMatch[1]) ? srcMatch[1].trim() : raw;
+                document.getElementById('quizFrame').src = cleanUrl;
+                document.getElementById('activeEmbedTitle').textContent = 'Custom Embed Content';
+                document.getElementById('activeEmbedPlatform').textContent = 'External Interactive Link';
+            }
+        }
+
+        // Canvas Spin Wheel Logic
+        let wheelAngle = 0;
+        let isSpinning = false;
+        const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6'];
+
+        function updateWheelOptionsFromText() {
+            const rawText = document.getElementById('wheelOptionsText').value;
+            const items = rawText.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+            if (items.length > 0) {
+                appData.wheelOptions = items;
+                saveToLocalStorage();
+                drawWheel();
+            }
+        }
+
+        function setWheelPreset(type) {
+            if (type === 'makanan') {
+                appData.wheelOptions = ['Nasi Goreng', 'Ayam Geprek', 'Bakso Solo', 'Sushi Roll', 'Mie Ayam', 'Soto Ayam', 'Padang'];
+            } else if (type === 'belajar') {
+                appData.wheelOptions = ['Review 5 Modul H5P', 'Latihan Coding JS', 'Review UI/UX Design', 'Baca Jurnal Kuliah', 'Istirahat Total'];
+            }
+            document.getElementById('wheelOptionsText').value = appData.wheelOptions.join('\n');
+            saveToLocalStorage();
+            drawWheel();
+        }
+
+        function drawWheel() {
+            const canvas = document.getElementById('wheelCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const numOptions = appData.wheelOptions.length;
+            const arcSize = (2 * Math.PI) / numOptions;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2 - 10;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < numOptions; i++) {
+                const angle = wheelAngle + i * arcSize;
+                ctx.beginPath();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+                ctx.lineTo(centerX, centerY);
+                ctx.fill();
+                ctx.strokeStyle = '#0f172a';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arcSize / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 12px Plus Jakarta Sans";
+                ctx.fillText(appData.wheelOptions[i], radius - 15, 4);
+                ctx.restore();
+            }
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 24, 0, 2 * Math.PI);
+            ctx.fillStyle = '#0f172a';
+            ctx.fill();
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+
+        function spinWheel() {
+            if (isSpinning || appData.wheelOptions.length === 0) return;
+            isSpinning = true;
+            document.getElementById('spinBtn').disabled = true;
+
+            const spinDuration = 3500;
+            const startVel = Math.random() * 0.4 + 0.5;
+            const start = performance.now();
+
+            function animate(time) {
+                const elapsed = time - start;
+                const progress = Math.min(elapsed / spinDuration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                
+                wheelAngle += startVel * (1 - easeOut);
+                drawWheel();
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    isSpinning = false;
+                    document.getElementById('spinBtn').disabled = false;
+                    calculateWheelWinner();
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        function calculateWheelWinner() {
+            const numOptions = appData.wheelOptions.length;
+            const arcSize = (2 * Math.PI) / numOptions;
+            const normalizedAngle = (1.5 * Math.PI - (wheelAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+            const winnerIndex = Math.floor(normalizedAngle / arcSize) % numOptions;
+            const winningText = appData.wheelOptions[winnerIndex];
+
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+            }
+
+            document.getElementById('wheelWinnerResult').textContent = winningText;
+            openModal('wheelWinnerModal');
+        }
+
+        // Pomodoro Timer
+        let pomoTime = 25 * 60;
+        let pomoTimer = null;
+        let pomoRunning = false;
+
+        function updatePomoDisplay() {
+            const min = Math.floor(pomoTime / 60).toString().padStart(2, '0');
+            const sec = (pomoTime % 60).toString().padStart(2, '0');
+            document.getElementById('pomoDisplay').textContent = `${min}:${sec}`;
+        }
+
+        function togglePomodoro() {
+            const btn = document.getElementById('pomoStartBtn');
+            if (pomoRunning) {
+                clearInterval(pomoTimer);
+                pomoRunning = false;
+                btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Mulai`;
+            } else {
+                pomoRunning = true;
+                btn.innerHTML = `<i class="fa-solid fa-pause mr-1"></i> Jeda`;
+                pomoTimer = setInterval(() => {
+                    if (pomoTime > 0) {
+                        pomoTime--;
+                        updatePomoDisplay();
+                    } else {
+                        clearInterval(pomoTimer);
+                        pomoRunning = false;
+                        btn.innerHTML = `<i class="fa-solid fa-play mr-1"></i> Mulai`;
+                        playPomoChime();
+                        appData.statPomodoro = (appData.statPomodoro || 0) + 1;
+                        document.getElementById('statPomodoro').textContent = appData.statPomodoro;
+                        saveToLocalStorage();
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomoTimer);
+            pomoRunning = false;
+            pomoTime = 25 * 60;
+            updatePomoDisplay();
+            document.getElementById('pomoStartBtn').innerHTML = `<i class="fa-solid fa-play mr-1"></i> Mulai`;
+        }
+
+        function setPomoMode(mode) {
+            clearInterval(pomoTimer);
+            pomoRunning = false;
+            pomoTime = (mode === 'focus') ? 25 * 60 : 5 * 60;
+            updatePomoDisplay();
+            document.getElementById('pomoStartBtn').innerHTML = `<i class="fa-solid fa-play mr-1"></i> Mulai`;
+        }
+
+        function playPomoChime() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                osc.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.5);
+            } catch (e) {}
+        }
+
+        // Flashcards 3D
+        let currentFlashIndex = 0;
+        let isFlipped = false;
+
+        function updateFlashcardDisplay() {
+            if (appData.flashcards.length === 0) {
+                document.getElementById('cardFrontText').textContent = 'Belum ada flashcard.';
+                document.getElementById('cardBackText').textContent = 'Tambahkan flashcard baru!';
+                document.getElementById('flashcardCounter').textContent = '0 / 0';
+                return;
+            }
+            const card = appData.flashcards[currentFlashIndex];
+            document.getElementById('cardFrontText').textContent = card.front;
+            document.getElementById('cardBackText').textContent = card.back;
+            document.getElementById('flashcardCounter').textContent = `${currentFlashIndex + 1} / ${appData.flashcards.length}`;
+            
+            isFlipped = false;
+            document.getElementById('flashcardInner').classList.remove('rotate-y-180');
+        }
+
+        function flipFlashcard() {
+            isFlipped = !isFlipped;
+            const inner = document.getElementById('flashcardInner');
+            if (isFlipped) inner.classList.add('rotate-y-180');
+            else inner.classList.remove('rotate-y-180');
+        }
+
+        function prevFlashcard() {
+            if (appData.flashcards.length === 0) return;
+            currentFlashIndex = (currentFlashIndex - 1 + appData.flashcards.length) % appData.flashcards.length;
+            updateFlashcardDisplay();
+        }
+
+        function nextFlashcard() {
+            if (appData.flashcards.length === 0) return;
+            currentFlashIndex = (currentFlashIndex + 1) % appData.flashcards.length;
+            updateFlashcardDisplay();
+        }
+
+        function saveFlashcard(e) {
+            e.preventDefault();
+            const front = document.getElementById('cardFrontInput').value.trim();
+            const back = document.getElementById('cardBackInput').value.trim();
+            if (front && back) {
+                appData.flashcards.push({ front, back });
+                saveToLocalStorage();
+                closeModal('addFlashcardModal');
+                currentFlashIndex = appData.flashcards.length - 1;
+                updateFlashcardDisplay();
+                renderOverview();
+                document.getElementById('cardFrontInput').value = '';
+                document.getElementById('cardBackInput').value = '';
+            }
+        }
+
+        // Tasks Management
+        function getTaskStatusStyle(status) {
+            switch(status) {
+                case 'Selesai':
+                case 'Completed':
+                    return 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+                case 'Dalam Proses':
+                case 'In Progress':
+                    return 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30';
+                case 'Terkendala':
+                case 'Blocked':
+                    return 'bg-rose-500/20 text-rose-400 border border-rose-500/30';
+                default:
+                    return 'bg-slate-800 text-slate-400 border border-slate-700';
+            }
+        }
+
+        function renderTasks(filterStatus = 'all') {
+            const grid = document.getElementById('tasksGrid');
+            const filtered = filterStatus === 'all' 
+                ? appData.tasks 
+                : appData.tasks.filter(t => t.status === filterStatus);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-xs text-slate-500 py-8">Tidak ada tugas ditemukan.</p>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(t => {
+                let progress = '0%';
+                if (t.status === 'Selesai' || t.status === 'Completed') progress = '100%';
+                else if (t.status === 'Dalam Proses' || t.status === 'In Progress') progress = '50%';
+
+                return `
+                    <div class="glass-card p-4 rounded-2xl border border-slate-800 flex flex-col justify-between gap-3">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-md bg-slate-800 text-slate-300">${t.subject}</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-md font-bold ${getTaskStatusStyle(t.status)}">${t.status}</span>
+                            </div>
+                            <h4 class="font-bold text-white text-sm">${t.title}</h4>
+                            <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-calendar text-indigo-400 mr-1"></i> Tenggat: ${t.dueDate}</p>
+                        </div>
+                        <div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-3">
+                                <div class="bg-indigo-500 h-full transition-all" style="width: ${progress}"></div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs border-t border-slate-800/80 pt-2">
+                                <select onchange="updateTaskStatus(${t.id}, this.value)" class="bg-slate-900 border border-slate-800 rounded-lg text-[11px] text-slate-300 p-1">
+                                    <option value="Belum Dimulai" ${t.status === 'Belum Dimulai' ? 'selected' : ''}>Belum Dimulai (0%)</option>
+                                    <option value="Dalam Proses" ${t.status === 'Dalam Proses' ? 'selected' : ''}>Dalam Proses (50%)</option>
+                                    <option value="Terkendala" ${t.status === 'Terkendala' ? 'selected' : ''}>Terkendala (0%)</option>
+                                    <option value="Selesai" ${t.status === 'Selesai' ? 'selected' : ''}>Selesai (100%)</option>
+                                </select>
+                                <button onclick="deleteTask(${t.id})" class="text-slate-500 hover:text-rose-400 p-1 cursor-pointer">
+                                    <i class="fa-solid fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterTasks(status, clickedBtn) {
+            if (clickedBtn) {
+                document.querySelectorAll('.task-filter-btn').forEach(btn => {
+                    btn.classList.remove('bg-indigo-600', 'text-white');
+                    btn.classList.add('bg-slate-800', 'text-slate-400');
+                });
+                clickedBtn.classList.remove('bg-slate-800', 'text-slate-400');
+                clickedBtn.classList.add('bg-indigo-600', 'text-white');
+            }
+            renderTasks(status);
+        }
+
+        function saveTask(e) {
+            e.preventDefault();
+            const title = document.getElementById('taskTitle').value.trim();
+            const subject = document.getElementById('taskSubject').value.trim();
+            const dueDate = document.getElementById('taskDueDate').value;
+            const status = document.getElementById('taskStatus').value;
+
+            if (title && subject) {
+                appData.tasks.push({ id: Date.now(), title, subject, dueDate, status });
+                saveToLocalStorage();
+                closeModal('addTaskModal');
+                document.getElementById('taskTitle').value = '';
+                document.getElementById('taskSubject').value = '';
+                renderTasks();
+                renderOverview();
+            }
+        }
+
+        function updateTaskStatus(id, newStatus) {
+            const task = appData.tasks.find(t => t.id === id);
+            if (task) {
+                task.status = newStatus;
+                saveToLocalStorage();
+                renderTasks();
+                renderOverview();
+            }
+        }
+
+        function deleteTask(id) {
+            appData.tasks = appData.tasks.filter(t => t.id !== id);
+            saveToLocalStorage();
+            renderTasks();
+            renderOverview();
+        }
+
+        // Calendar & Agenda
+        let currentCalDate = new Date();
+
+        function renderCalendar() {
+            const year = currentCalDate.getFullYear();
+            const month = currentCalDate.getMonth();
+            const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+            document.getElementById('calendarMonthTitle').textContent = `${monthNames[month]} ${year}`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const totalDays = new Date(year, month + 1, 0).getDate();
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="p-2 text-slate-700"></div>`;
+            }
+
+            const today = new Date();
+            for (let d = 1; d <= totalDays; d++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const hasEvents = appData.schedules.some(s => s.date === dateStr);
+                const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
+
+                grid.innerHTML += `
+                    <div class="p-2 rounded-xl flex flex-col items-center justify-between border ${isToday ? 'bg-indigo-600/20 border-indigo-500 text-indigo-300 font-bold' : 'border-slate-800/60 hover:bg-slate-800/40 text-slate-300'}">
+                        <span>${d}</span>
+                        ${hasEvents ? '<span class="w-1.5 h-1.5 bg-amber-400 rounded-full mt-1"></span>' : ''}
+                    </div>
+                `;
+            }
+
+            const eventsList = document.getElementById('calendarEventsList');
+            if (appData.schedules.length === 0) {
+                eventsList.innerHTML = `<p class="text-xs text-slate-500">Belum ada agenda tersimpan.</p>`;
+            } else {
+                eventsList.innerHTML = appData.schedules.map(s => `
+                    <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold text-white">${s.title}</p>
+                            <p class="text-[10px] text-slate-400"><i class="fa-solid fa-clock text-indigo-400"></i> ${s.date} @ ${s.time}</p>
+                        </div>
+                        <button onclick="deleteAgenda(${s.id})" class="text-slate-500 hover:text-rose-400 cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function changeMonth(delta) {
+            currentCalDate.setMonth(currentCalDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function saveAgenda(e) {
+            e.preventDefault();
+            const title = document.getElementById('agendaTitle').value.trim();
+            const date = document.getElementById('agendaDate').value;
+            const time = document.getElementById('agendaTime').value;
+            const category = document.getElementById('agendaCategory').value;
+
+            if (title && date) {
+                appData.schedules.push({ id: Date.now(), title, date, time, category });
+                saveToLocalStorage();
+                closeModal('addAgendaModal');
+                document.getElementById('agendaTitle').value = '';
+                renderCalendar();
+                renderOverview();
+            }
+        }
+
+        function deleteAgenda(id) {
+            appData.schedules = appData.schedules.filter(s => s.id !== id);
+            saveToLocalStorage();
+            renderCalendar();
+            renderOverview();
+        }
+
+        // Journal
+        let selectedMoodIcon = '😊';
+        let currentJournalImage = '';
+
+        function selectMood(emoji, btnEl) {
+            selectedMoodIcon = emoji;
+            if (btnEl) {
+                document.querySelectorAll('.mood-btn').forEach(b => {
+                    b.classList.remove('bg-indigo-600/30', 'border-indigo-500');
+                    b.classList.add('bg-slate-800', 'border-transparent');
+                });
+                btnEl.classList.remove('bg-slate-800', 'border-transparent');
+                btnEl.classList.add('bg-indigo-600/30', 'border-indigo-500');
+            }
+        }
+
+        function previewJournalImage(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('journalImgFileName').textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    currentJournalImage = evt.target.result;
+                    document.getElementById('journalImgPreview').src = currentJournalImage;
+                    document.getElementById('journalImgPreviewBox').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeJournalImage() {
+            currentJournalImage = '';
+            document.getElementById('journalImageInput').value = '';
+            document.getElementById('journalImgFileName').textContent = '';
+            document.getElementById('journalImgPreviewBox').classList.add('hidden');
+        }
+
+        function saveJournalEntry() {
+            const text = document.getElementById('journalContent').value.trim();
+            if (text) {
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) + `, ${now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}`;
+                appData.journals.unshift({
+                    id: Date.now(),
+                    mood: selectedMoodIcon,
+                    text,
+                    date: dateStr,
+                    image: currentJournalImage
+                });
+                saveToLocalStorage();
+                document.getElementById('journalContent').value = '';
+                removeJournalImage();
+                renderJournals();
+            }
+        }
+
+        function renderJournals() {
+            const feed = document.getElementById('journalFeed');
+            if (appData.journals.length === 0) {
+                feed.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center">Belum ada jurnal tersimpan.</p>`;
+                return;
+            }
+
+            feed.innerHTML = appData.journals.map(j => `
+                <div class="glass-card p-4 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">${j.mood}</span>
+                            <span class="text-[11px] font-bold text-slate-400">${j.date}</span>
+                        </div>
+                        <button onclick="deleteJournal(${j.id})" class="text-slate-500 hover:text-rose-400 p-1 cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>
+                    </div>
+                    <p class="text-xs text-slate-200 leading-relaxed whitespace-pre-line">${j.text}</p>
+                    ${j.image ? `<img src="${j.image}" class="h-44 rounded-xl border border-slate-700 object-cover mt-2">` : ''}
+                </div>
+            `).join('');
+        }
+
+        function deleteJournal(id) {
+            appData.journals = appData.journals.filter(j => j.id !== id);
+            saveToLocalStorage();
+            renderJournals();
+        }
+
+        // Finance
+        function renderFinances() {
+            const tbody = document.getElementById('financeTableBody');
+            let totalInc = 0;
+            let totalExp = 0;
+
+            if (appData.finances.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-500">Belum ada transaksi recorded.</td></tr>`;
+            } else {
+                tbody.innerHTML = appData.finances.map(f => {
+                    const amt = Number(f.amount);
+                    if (f.type === 'Pemasukan') totalInc += amt;
+                    else totalExp += amt;
+
+                    return `
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-3 px-3 text-slate-400">${f.date}</td>
+                            <td class="py-3 px-3 font-semibold text-slate-300">${f.category}</td>
+                            <td class="py-3 px-3 text-slate-200">${f.notes}</td>
+                            <td class="py-3 px-3">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${f.type === 'Pemasukan' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}">
+                                    ${f.type}
+                                </span>
+                            </td>
+                            <td class="py-3 px-3 text-right font-bold ${f.type === 'Pemasukan' ? 'text-emerald-400' : 'text-rose-400'}">
+                                ${f.type === 'Pemasukan' ? '+' : '-'} Rp ${amt.toLocaleString('id-ID')}
+                            </td>
+                            <td class="py-3 px-3 text-center">
+                                <button onclick="deleteFinance(${f.id})" class="text-slate-500 hover:text-rose-400 cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            document.getElementById('finTotalIncome').textContent = `Rp ${totalInc.toLocaleString('id-ID')}`;
+            document.getElementById('finTotalExpense').textContent = `Rp ${totalExp.toLocaleString('id-ID')}`;
+            const net = totalInc - totalExp;
+            document.getElementById('finNetBalance').textContent = `Rp ${net.toLocaleString('id-ID')}`;
+        }
+
+        function saveFinance(e) {
+            e.preventDefault();
+            const type = document.getElementById('finType').value;
+            const amount = document.getElementById('finAmount').value;
+            const category = document.getElementById('finCategory').value.trim();
+            const notes = document.getElementById('finNotes').value.trim();
+
+            if (amount && category) {
+                const today = new Date().toISOString().split('T')[0];
+                appData.finances.unshift({ id: Date.now(), type, amount: Number(amount), category, notes, date: today });
+                saveToLocalStorage();
+                closeModal('addFinanceModal');
+                document.getElementById('finAmount').value = '';
+                document.getElementById('finCategory').value = '';
+                document.getElementById('finNotes').value = '';
+                renderFinances();
+                renderOverview();
+            }
+        }
+
+        function deleteFinance(id) {
+            appData.finances = appData.finances.filter(f => f.id !== id);
+            saveToLocalStorage();
+            renderFinances();
+            renderOverview();
+        }
+
+        // Modals & Reset
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function confirmResetData() {
+            safeRemoveStorage('flaaz_workspace_data_v2');
+            appData = JSON.parse(JSON.stringify(DEFAULT_STATE));
+            saveToLocalStorage();
+            closeModal('resetDataModal');
+            initApp();
+        }
+
+        function initApp() {
+            updateUserUI();
+            
+            if (appData.user.loggedIn) {
+                document.getElementById('authScreen').classList.add('hidden');
+            } else {
+                document.getElementById('authScreen').classList.remove('hidden');
+            }
+
+            document.getElementById('wheelOptionsText').value = appData.wheelOptions.join('\n');
+
+            renderOverview();
+            renderEmbedModules();
+            renderTasks();
+            renderCalendar();
+            updateFlashcardDisplay();
+            renderJournals();
+            renderFinances();
+            drawWheel();
+        }
+
+        window.onload = function() {
+            initApp();
+        };
+    </script>
+</body>
+</html>
